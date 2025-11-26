@@ -221,7 +221,7 @@ shadeHueCurve: ["linear", 950]
 #### Method 1: Using the Color Picker
 1. Go to https://bottosson.github.io/misc/colorpicker/ and select OKHSL mode
 2. Pick your color and note the H, S, L values
-3. Open `colors-v1.js` or `colors-v2.js`
+3. Open `colors-v2.js`
 4. Add new configuration to `colorConfigs` array:
 ```javascript
 {

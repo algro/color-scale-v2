@@ -126,16 +126,10 @@ function generateGlobalColorsCss() {
   document.head.appendChild(link);
 }
 
-// Load colors from JSON and render
-async function loadAndRenderColors(version = null) {
+// Load colors from JSON and render (v2 only)
+async function loadAndRenderColors() {
   try {
-    // Get version from parameter, selector, localStorage, or default to v1
-    if (!version) {
-      const selector = document.getElementById('version-selector');
-      version = selector?.value || localStorage.getItem('colorVersion') || 'v1';
-    }
-    
-    const response = await fetch(`./color-scale-${version}.json`);
+    const response = await fetch(`./color-scale-v2.json`);
     const colorData = await response.json();
     
     const scalesContainer = document.querySelector('.scales-container');
@@ -154,34 +148,15 @@ async function loadAndRenderColors(version = null) {
     
     // Generate the global-colors.css file
     generateGlobalColorsCss();
-    
-    // Save version preference
-    localStorage.setItem('colorVersion', version);
-    
-    console.log(`✅ Colors loaded from color-scale-${version}.json`);
+        
+    console.log(`✅ Colors loaded from color-scale-v2.json`);
   } catch (error) {
     console.error('❌ Error loading colors:', error);
-    alert(`Error loading ${version} colors. Make sure color-scale-${version}.json exists. Run: npm run build`);
+    alert(`Error loading colors. Make sure color-scale-v2.json exists. Run: npm run build`);
   }
 }
 
-// Initialize version selector
-function initVersionSelector() {
-  const selector = document.getElementById('version-selector');
-  if (!selector) return;
-  
-  // Set initial value from localStorage
-  const savedVersion = localStorage.getItem('colorVersion') || 'v1';
-  selector.value = savedVersion;
-  
-  // Handle version changes
-  selector.addEventListener('change', (e) => {
-    loadAndRenderColors(e.target.value);
-  });
-}
-
 // Initialize - Load colors from JSON
-initVersionSelector();
 loadAndRenderColors();
 
 // Format the entire scale data for copying
