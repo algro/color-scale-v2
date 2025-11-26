@@ -113,9 +113,9 @@ function wrapHue(hue) {
  * @param {number} options.baseLightness - Base lightness in percentage (0-100)
  * @param {number} options.startL - Starting lightness at step 50 (absolute %)
  * @param {number} options.endL - Ending lightness at step 950 (absolute %)
- * @param {Array} options.hueProgression - [{ tint shifts }, { shade shifts }]
- * @param {Array} options.saturationProgression - [{ tint % of base }, { shade % of base }] (RELATIVE)
- * @param {Array} options.lightnessProgression - [{ tint % of range }, { shade % of range }] (RELATIVE)
+ * @param {Object} options.hueProgression - { step: shift } - Hue shifts in degrees for specific steps
+ * @param {Object} options.saturationProgression - { step: percent } - Saturation as % of base (RELATIVE)
+ * @param {Object} options.lightnessProgression - { step: percent } - Lightness as % of range (RELATIVE)
  * @returns {Array} Array of 13 color objects {L, C, H} in OKLCH space
  */
 export function generateScale({
@@ -124,9 +124,9 @@ export function generateScale({
   baseLightness,
   startL = 98,
   endL = 9.5,
-  hueProgression,
-  saturationProgression,
-  lightnessProgression
+  hueProgression = {},
+  saturationProgression = {},
+  lightnessProgression = {}
 }) {
   // Convert base color to OKLCH
   const baseOKLCH = okhslToOKLCH(baseHue / 360, baseSaturation / 100, baseLightness / 100);
@@ -134,62 +134,48 @@ export function generateScale({
   const baseC = baseOKLCH.C;
   const baseH = baseOKLCH.H;
 
-  // Parse progression arrays
-  const [tintHueShifts, shadeHueShifts] = hueProgression || [[0], [0]];
-  const [tintSaturationPercents, shadeSaturationPercents] = saturationProgression || [[100], [100]];
-  const [tintLightnessPercents, shadeLightnessPercents] = lightnessProgression || [[{}], [{}]];
-
   // Build complete control point maps (tints + base + shades)
   const hueControls = {
-    ...mapValuesToSteps(tintHueShifts, TINT_STEPS),
-    500: 0, // Base has no hue shift
-    ...mapValuesToSteps(shadeHueShifts, SHADE_STEPS)
+    ...mapValuesToSteps(hueProgression, STEPS),
+    500: 0, // Base has no hue shift (can be overridden)
   };
 
   // Saturation: convert relative percentages to absolute values
-  // (e.g., if baseSaturation=95% and progression says 10%, result is 95% * 10% = 9.5%)
-  const tintSatControls = mapValuesToSteps(tintSaturationPercents, TINT_STEPS);
-  const shadeSatControls = mapValuesToSteps(shadeSaturationPercents, SHADE_STEPS);
-
+  // (e.g., if baseSaturation=95% and progression says 60%, result is 95% * 60% = 57%)
+  const satProgression = mapValuesToSteps(saturationProgression, STEPS);
   const satControls = {
     // Convert relative % to absolute saturation values
     ...Object.fromEntries(
-      Object.entries(tintSatControls).map(([step, percent]) => [step, baseSaturation * (percent / 100)])
+      Object.entries(satProgression).map(([step, percent]) => [step, baseSaturation * (percent / 100)])
     ),
     500: baseSaturation, // Base is always 100% of itself
-    ...Object.fromEntries(
-      Object.entries(shadeSatControls).map(([step, percent]) => [step, baseSaturation * (percent / 100)])
-    )
   };
 
   // Lightness: convert relative percentages to absolute values
-  // For tints: % progress from startL to baseLightness
-  // For shades: % progress from baseLightness to endL
-  const tintLightControls = mapValuesToSteps(tintLightnessPercents, TINT_STEPS);
-  const shadeLightControls = mapValuesToSteps(shadeLightnessPercents, SHADE_STEPS);
+  // For tints (< 500): % progress from startL to baseLightness
+  // For shades (> 500): % progress from baseLightness to endL
+  const lightProgression = mapValuesToSteps(lightnessProgression, STEPS);
 
   const tintRange = baseLightness - startL;
   const shadeRange = endL - baseLightness;
 
   const lightControls = {
     50: startL, // Always anchor to startL
-    // Convert tint relative % to absolute lightness
-    ...Object.fromEntries(
-      Object.entries(tintLightControls).map(([step, percent]) => [
-        step,
-        startL + (percent / 100) * tintRange
-      ])
-    ),
     500: baseLightness, // Base is always exact
-    // Convert shade relative % to absolute lightness
-    ...Object.fromEntries(
-      Object.entries(shadeLightControls).map(([step, percent]) => [
-        step,
-        baseLightness + (percent / 100) * shadeRange
-      ])
-    ),
     950: endL // Always anchor to endL
   };
+
+  // Convert relative % to absolute lightness for each step
+  for (const [step, percent] of Object.entries(lightProgression)) {
+    const stepNum = Number(step);
+    if (stepNum < 500) {
+      // Tint: interpolate from startL to baseLightness
+      lightControls[stepNum] = startL + (percent / 100) * tintRange;
+    } else if (stepNum > 500) {
+      // Shade: interpolate from baseLightness to endL
+      lightControls[stepNum] = baseLightness + (percent / 100) * shadeRange;
+    }
+  }
 
   // Generate scale by interpolating OKhsl values for each step
   const scale = [];

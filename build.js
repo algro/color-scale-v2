@@ -85,16 +85,17 @@ async function generateColorScaleForVersion(versionFile) {
     let options;
     
     if (isV2) {
-      // V2: Simple progression array system
+      // V2: Simple progression object system
+      // Merge defaults with color-specific overrides for partial customization
       options = {
         baseHue: rawBaseHue,
         baseSaturation: rawBaseSaturation,
         baseLightness: rawBaseLightness,
         startL: overrides.startL ?? defaults.startL,
         endL: overrides.endL ?? defaults.endL,
-        hueProgression: overrides.hueProgression ?? defaults.hueProgression,
-        saturationProgression: overrides.saturationProgression ?? defaults.saturationProgression,
-        lightnessProgression: overrides.lightnessProgression ?? defaults.lightnessProgression,
+        hueProgression: { ...defaults.hueProgression, ...overrides.hueProgression },
+        saturationProgression: { ...defaults.saturationProgression, ...overrides.saturationProgression },
+        lightnessProgression: { ...defaults.lightnessProgression, ...overrides.lightnessProgression },
       };
     } else {
       // V1: Complex curve system (legacy)
