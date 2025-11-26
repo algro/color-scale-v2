@@ -34,10 +34,4 @@ pids
 # Optional eslint cache
 .eslintcache
 
-# Project-specific files to ignore
-figlet-code.js
-figlet-ui.html
-README-DEV.md
-# Analysis and helper scripts
-visual-balance-analysis.js
-helpers/
+

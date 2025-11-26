@@ -1,5 +1,4 @@
 // scale.js
-import Color from "https://colorjs.io/dist/color.js";
 import { oklchToHex } from "./colors-utilities.js";
 import { oklchToOKhsl, okhslToOKLCH } from "./okhsl.js";
 
@@ -133,11 +132,11 @@ export function ease(t, easingType = "linear") {
 function parseCurveDefinition(curveDefinition, startStep = 50) {
   const segments = [];
   let currentStep = startStep;
-  
+
   for (let i = 0; i < curveDefinition.length; i += 2) {
     const easingSpec = curveDefinition[i];
     const endStep = curveDefinition[i + 1] || 950; // Default to 950 if last segment
-    
+
     // Parse easing type and rate (e.g., "linear:0.5" -> {type: "linear", rate: 0.5})
     let easingType, rate;
     if (easingSpec.includes(':')) {
@@ -147,17 +146,17 @@ function parseCurveDefinition(curveDefinition, startStep = 50) {
       easingType = easingSpec;
       rate = 1.0; // Default to full rate
     }
-    
+
     segments.push({
       startStep: currentStep,
       endStep: endStep,
       easingType: easingType,
       rate: rate
     });
-    
+
     currentStep = endStep;
   }
-  
+
   return segments;
 }
 
@@ -178,16 +177,16 @@ function evaluatePiecewiseCurve(step, tintCurve, shadeCurve, startValue, baseVal
     console.warn(`Step ${step} not found in steps array`);
     return baseValue;
   }
-  
+
   const baseIndex = allSteps.indexOf(500); // Index 6
-  
+
   // Return base value for step 500
   if (stepIndex === baseIndex) {
     return baseValue;
   }
-  
+
   const isInTints = stepIndex < baseIndex;
-  
+
   if (isInTints) {
     // TINTS: Use tint curve (50→500)
     return evaluateCurveSegment(step, tintCurve, startValue, baseValue, allSteps, 0, baseIndex);
@@ -215,10 +214,10 @@ function evaluateCurveSegment(step, curveDefinition, startValue, endValue, allSt
     startIndex: allSteps.indexOf(seg.startStep),
     endIndex: allSteps.indexOf(seg.endStep)
   }));
-  
+
   // Compute total rate
   const totalRate = segments.reduce((sum, seg) => sum + seg.rate, 0);
-    
+
   let accumulatedRate = 0;
   for (const segment of segments) {
     const segSpan = segment.endIndex - segment.startIndex;
@@ -232,7 +231,7 @@ function evaluateCurveSegment(step, curveDefinition, startValue, endValue, allSt
       const progressInSeg = (segment.rate / totalRate) * easedT;
       const progress = progressBefore + progressInSeg;
       return startValue + (endValue - startValue) * progress;
-      }
+    }
     accumulatedRate += segment.rate;
   }
 
@@ -242,6 +241,44 @@ function evaluateCurveSegment(step, curveDefinition, startValue, endValue, allSt
 
 function wrapHue(h) {
   return ((h % 360) + 360) % 360;
+}
+
+/**
+ * Apply a unified "bump" at a specific step in the shade range
+ * Creates a smooth curve that peaks above the base value, then descends
+ * Used for both saturation and hue shift to create coordinated peak intensity
+ * 
+ * @param {number} currentStep - Current step (600, 700, etc.)
+ * @param {number} linearValue - Value from normal curve interpolation
+ * @param {number} baseValue - Base value at step 500
+ * @param {number} peakStep - Step where peak occurs (e.g., 600)
+ * @param {number} boost - Multiplier for peak (e.g., 1.10 = 10% boost)
+ * @returns {number} Adjusted value with bump applied
+ */
+function applyShadeBoost(currentStep, linearValue, baseValue, peakStep, boost) {
+  const steps = [50, 100, 150, 200, 300, 400, 500, 600, 700, 800, 850, 900, 950];
+  const shadeSteps = steps.slice(6); // [500, 600, 700, 800, 850, 900, 950]
+
+  const stepIndex = shadeSteps.indexOf(currentStep);
+  const peakIndex = shadeSteps.indexOf(peakStep);
+
+  if (stepIndex === -1 || peakIndex === -1) {
+    return linearValue; // No bump if step not found
+  }
+
+  // Calculate peak value
+  const peakValue = baseValue * boost;
+
+  // Create smooth bump using a Gaussian-like curve
+  const distanceFromPeak = Math.abs(stepIndex - peakIndex);
+
+  // Smooth falloff (adjust 2.0 for wider/narrower bump)
+  const influence = Math.exp(-(distanceFromPeak * distanceFromPeak) / (2.0 * 2.0));
+
+  // Interpolate between linear value and peak
+  const bumpAmount = (peakValue - baseValue) * influence;
+
+  return linearValue + bumpAmount;
 }
 
 // Old generateTintShadeScale function removed - replaced by generatePerceptuallyUniformScale with piecewise curves
@@ -263,6 +300,8 @@ function wrapHue(h) {
  * @param {Array} [options.lightnessCurve] - Piecewise curve for lightness progression
  * @param {Array} [options.saturationCurve] - Piecewise curve for saturation progression
  * @param {Array} [options.hueCurve] - Piecewise curve for hue progression
+ * @param {number} [options.shadePeakStep] - Step where peak intensity occurs (e.g., 600)
+ * @param {number} [options.shadeBoost] - Unified boost multiplier for saturation and hue (e.g., 1.10)
  * @returns {Array} Array of 13 color objects {L, C, H}
  */
 export function generatePerceptuallyUniformScale({
@@ -282,6 +321,9 @@ export function generatePerceptuallyUniformScale({
   shadeLightnessCurve = defaultCurves.shadeLightnessCurve,
   shadeSaturationCurve = defaultCurves.shadeSaturationCurve,
   shadeHueCurve = defaultCurves.shadeHueCurve,
+  // Unified shade peak boost (optional)
+  shadePeakStep = null,
+  shadeBoost = null,
   // Legacy support
   lightnessCurve = null,
   saturationCurve = null,
@@ -298,7 +340,7 @@ export function generatePerceptuallyUniformScale({
   // Generate each step
   for (let i = 0; i < N; i++) {
     const step = steps[i];
-    
+
     if (step === 500) {
       scale[i] = { L: baseL, C: baseC, H: baseH };
       continue;
@@ -306,8 +348,42 @@ export function generatePerceptuallyUniformScale({
 
     // Use separate curves for tints vs shades
     const Li = evaluatePiecewiseCurve(step, tintLightnessCurve, shadeLightnessCurve, startL, baseL, endL);
-    const Si = evaluatePiecewiseCurve(step, tintSaturationCurve, shadeSaturationCurve, startS, baseSaturation, endS);
-    const hueShift = evaluatePiecewiseCurve(step, tintHueCurve, shadeHueCurve, startHueShift, 0, endHueShift);
+    let Si, hueShift;
+
+    // Peak-based system: when shadePeakStep is defined, override curves for shades
+    if (shadePeakStep && shadeBoost && step > 500) {
+      // Calculate peak values
+      const peakSaturation = baseSaturation * shadeBoost;
+
+      // For hue shift: calculate what the peak hue shift should be
+      // Use the progress from 500 to peak as if it were the full 500-950 range
+      const normalProgressToPeak = (shadePeakStep - 500) / (950 - 500);
+      const peakHueShift = startHueShift + (endHueShift - startHueShift) * normalProgressToPeak;
+      const boostedPeakHueShift = peakHueShift * shadeBoost;
+
+      if (step === shadePeakStep) {
+        // Exactly at peak
+        Si = peakSaturation;
+        hueShift = boostedPeakHueShift;
+      } else if (step < shadePeakStep) {
+        // Rising toward peak: 500 → peak (easeOutSine)
+        const t = (step - 500) / (shadePeakStep - 500);
+        const eased = easeOutSine(t);
+        Si = baseSaturation + (peakSaturation - baseSaturation) * eased;
+        hueShift = 0 + boostedPeakHueShift * eased;
+      } else {
+        // Falling from peak: peak → 950 (easeInSine)
+        const t = (step - shadePeakStep) / (950 - shadePeakStep);
+        const eased = easeInSine(t);
+        Si = peakSaturation + (endS - peakSaturation) * eased;
+        hueShift = boostedPeakHueShift + (endHueShift - boostedPeakHueShift) * eased;
+      }
+    } else {
+      // Normal curve-based system (no peak)
+      Si = evaluatePiecewiseCurve(step, tintSaturationCurve, shadeSaturationCurve, startS, baseSaturation, endS);
+      hueShift = evaluatePiecewiseCurve(step, tintHueCurve, shadeHueCurve, startHueShift, 0, endHueShift);
+    }
+
     const Hi = wrapHue(baseH + hueShift);
 
     // Handle zero saturation case (pure grayscale)

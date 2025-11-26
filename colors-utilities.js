@@ -1,9 +1,10 @@
 // colors-utilities.js
-import Color from "https://colorjs.io/dist/color.js";
+// Note: Assumes Color is available globally
+// - In browser: imported by app.js
+// - In Node.js: provided by build.js via globalThis.Color
 
 /**
- * Computes the optimal contrast color (black or white) for text on a given background color
- * Uses WCAG relative luminance calculation
+ * Computes the contrast dot color - prefers white unless it fails WCAG AA (4.5:1)
  * @param {string} hex - Hex color string (e.g., "#ff0000")
  * @returns {string} Either "#ffffff" or "#000000"
  */
@@ -19,8 +20,8 @@ export function computeContrastDotColor(hex) {
     0.7152 * lumVals[1] +
     0.0722 * lumVals[2];
   const contrastWhite = (1.0 + 0.05)/(L + 0.05);
-  const contrastBlack = (L + 0.05)/0.05;
-  return contrastWhite >= contrastBlack ? "#ffffff" : "#000000";
+  // Always use white unless it fails WCAG AA (4.5:1)
+  return contrastWhite >= 4.5 ? "#ffffff" : "#000000";
 }
 
 /**
@@ -34,6 +35,19 @@ export function rgbToOklab(hex) {
   // Convert L to percentage format for consistency with CSS and design tools
   const Lpct = (L01 * 100).toFixed(1) + '%';
   return `oklch(${Lpct} ${C04.toFixed(3)} ${Hdeg.toFixed(1)})`;
+}
+
+/**
+ * Converts a hex color to OKhsl format string
+ * @param {string} hex - Hex color string (e.g., "#ff0000")
+ * @returns {string} OKhsl color string (e.g., "okhsl(29.2, 100%, 62.8%)")
+ */
+export function rgbToOkhsl(hex) {
+  const [H, S01, L01] = new Color(hex).to("okhsl").coords;
+  const Spct = (S01 * 100).toFixed(1);
+  const Lpct = (L01 * 100).toFixed(1);
+  const Hdeg = H.toFixed(1);
+  return `okhsl(${Hdeg}, ${Spct}%, ${Lpct}%)`;
 }
 
 /**
