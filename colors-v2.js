@@ -41,6 +41,7 @@ export const colorConfigs = [
     baseSaturation: 95.66,
     baseLightness: 58.97,
     hueProgression: { 50: -8, 950: -5 },
+    
   },
   {
     name: "orange-500",
@@ -48,6 +49,7 @@ export const colorConfigs = [
     baseSaturation: 99.12,
     baseLightness: 71.32,
     hueProgression: { 50: 30, 950: -20 },
+    lightnessProgression: {600:4}, // ensures step 700 to be approx. 4.5 ratio towards white 
   },
   {
     name: "yellow-500",
@@ -55,6 +57,7 @@ export const colorConfigs = [
     baseSaturation: 98.95,
     baseLightness: 79.85,
     hueProgression: { 50: 10, 950: -35 },
+    lightnessProgression: {600:3, 850:65, 900:85}, // yellow is a bit lighter in the shades
   },
   {
     name: "green-500",
@@ -62,6 +65,7 @@ export const colorConfigs = [
     baseSaturation: 94.24,
     baseLightness: 69.06,
     hueProgression: { 50: 15, 950: 12 },
+    lightnessProgression: {600:8}, // ensures step 700 to be approx. 4.5 ratio towards white
   },
   {
     name: "teal-500",
@@ -69,6 +73,7 @@ export const colorConfigs = [
     baseSaturation: 100,
     baseLightness: 70.59,
     hueProgression: { 50: -5, 950: 5 },
+    lightnessProgression: {600:10}, // ensures step 700 to be approx. 4.5 ratio towards white
   },
   {
     name: "sky-500",
@@ -76,6 +81,7 @@ export const colorConfigs = [
     baseSaturation: 100,
     baseLightness: 70.60,
     hueProgression: { 50: -5, 950: 0 },
+    lightnessProgression: {600:9}, // ensures step 700 to be approx. 4.5 ratio towards white
   },
   {
     name: "blue-500",
@@ -83,6 +89,7 @@ export const colorConfigs = [
     baseSaturation: 100.00,
     baseLightness: 57.28,
     hueProgression: { 50: -5, 950: 5 },
+    lightnessProgression: {600:14.5}, // ensures step 600 to be approx. 4.5 ratio towards white
   },
   {
     name: "iris-500",
@@ -97,6 +104,7 @@ export const colorConfigs = [
     baseSaturation: 92.88,
     baseLightness: 56.56,
     hueProgression: { 50: -5, 950: 5 },
+    lightnessProgression: {600:8.5}, // ensures step 600 to be approx. 4.5 ratio towards white
   },
   {
     name: "rose-500",
@@ -104,6 +112,7 @@ export const colorConfigs = [
     baseSaturation: 91.74,
     baseLightness: 58.11,
     hueProgression: { 50: -4, 950: -12 },
+    lightnessProgression: {600:10.5}, // ensures step 600 to be approx. 4.5 ratio towards white
   },
   {
     name: "slate-500",
