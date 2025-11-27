@@ -76,10 +76,10 @@ export const colorConfigs = [
     lightnessProgression: {600:10}, // ensures step 700 to be approx. 4.5 ratio towards white
   },
   {
-    name: "sky-500",
-    baseHue: 219.96,
+    name: "cyan-500",
+    baseHue: 223.86,
     baseSaturation: 100,
-    baseLightness: 70.60,
+    baseLightness: 68.94,
     hueProgression: { 50: -5, 950: 0 },
     lightnessProgression: {600:9}, // ensures step 700 to be approx. 4.5 ratio towards white
   },
