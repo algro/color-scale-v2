@@ -41,6 +41,7 @@ export const colorConfigs = [
     baseSaturation: 95.66,
     baseLightness: 58.97,
     hueProgression: { 50: -8, 950: -5 },
+    lightnessProgression: {600:12}, // ensures step 600 to be approx. 4.5 ratio towards white 
     
   },
   {
@@ -81,7 +82,7 @@ export const colorConfigs = [
     baseSaturation: 100,
     baseLightness: 68.94,
     hueProgression: { 50: -5, 950: 0 },
-    lightnessProgression: {600:9}, // ensures step 700 to be approx. 4.5 ratio towards white
+    lightnessProgression: {600:6}, // ensures step 700 to be approx. 4.5 ratio towards white
   },
   {
     name: "blue-500",

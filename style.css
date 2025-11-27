@@ -171,6 +171,19 @@ body {
   z-index: 3;
 }
 
+/* White triangle indicator for first contrasty shade */
+.contrast-indicator {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 8px 8px 0;
+  border-color: transparent white transparent transparent;
+  z-index: 2;
+}
+
 /* Show contrast dots on hover - only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .swatch:hover .contrast-dot {

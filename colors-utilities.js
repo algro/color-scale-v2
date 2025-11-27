@@ -62,6 +62,39 @@ export function oklchToHex({ L, C, H }) {
   return new Color("oklch", [L / 100, C, H])
            .to("srgb")
            .toString({ format: "hex", alpha: false, collapse: false });
-} 
+}
+
+/**
+ * Calculates the contrast ratio between a color and white
+ * @param {string} hex - Hex color string (e.g., "#ff0000")
+ * @returns {number} Contrast ratio
+ */
+export function getContrastRatioAgainstWhite(hex) {
+  const r = parseInt(hex.slice(1,3),16)/255;
+  const g = parseInt(hex.slice(3,5),16)/255;
+  const b = parseInt(hex.slice(5,7),16)/255;
+  const lumVals = [r,g,b].map(c =>
+    c <= 0.03928 ? c/12.92 : ((c+0.055)/1.055)**2.4
+  );
+  const L =
+    0.2126 * lumVals[0] +
+    0.7152 * lumVals[1] +
+    0.0722 * lumVals[2];
+  return (1.0 + 0.05)/(L + 0.05);
+}
+
+/**
+ * Finds the index of the first shade with sufficient contrast against white (4.5:1)
+ * @param {Array<string>} hexValues - Array of hex color codes
+ * @returns {number} Index of first contrasty shade, or -1 if none found
+ */
+export function findFirstContrastyShade(hexValues) {
+  for (let i = 0; i < hexValues.length; i++) {
+    if (getContrastRatioAgainstWhite(hexValues[i]) >= 4.5) {
+      return i;
+    }
+  }
+  return -1;
+}
 
  

@@ -1,6 +1,6 @@
 // app.js
 import Color from "https://colorjs.io/dist/color.js";
-import { computeContrastDotColor, rgbToOklab, rgbToOkhsl } from "./colors-utilities.js";
+import { computeContrastDotColor, rgbToOklab, rgbToOkhsl, findFirstContrastyShade } from "./colors-utilities.js";
 
 // Make Color available globally for colors-utilities.js
 window.Color = Color;
@@ -44,6 +44,9 @@ function createScaleRow(colorName, hexValues, steps, rowIndex) {
   const swatchContainer = document.createElement("div");
   swatchContainer.className = "swatch-container";
 
+  // Find the first shade with sufficient contrast against white
+  const contrastyShadeIndex = findFirstContrastyShade(hexValues);
+
   hexValues.forEach((hex, idx) => {
     const sw = document.createElement("div");
     sw.className = "swatch";
@@ -58,6 +61,13 @@ function createScaleRow(colorName, hexValues, steps, rowIndex) {
 
     sw.appendChild(tooltip);
     sw.appendChild(contrastDot);
+
+    // Add white triangle indicator to the first contrasty shade
+    if (idx === contrastyShadeIndex) {
+      const indicator = document.createElement("div");
+      indicator.className = "contrast-indicator";
+      sw.appendChild(indicator);
+    }
 
     sw.addEventListener("mouseenter", () => {
       const stepName = `${colorName}-${steps[idx]}`;
