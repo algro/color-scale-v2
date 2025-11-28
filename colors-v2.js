@@ -73,7 +73,7 @@ export const colorConfigs = [
     baseHue: 181.77,
     baseSaturation: 100,
     baseLightness: 70.59,
-    hueProgression: { 50: -5, 950: 5 },
+    hueProgression: { 50: -5, 950: -5 },
     lightnessProgression: {600:10}, // ensures step 700 to be approx. 4.5 ratio towards white
   },
   {
@@ -82,6 +82,8 @@ export const colorConfigs = [
     baseSaturation: 100,
     baseLightness: 68.94,
     hueProgression: { 50: -5, 950: 0 },
+    //TODOOO fix saturation progression for cyan teal and green
+    saturationProgression: { 50: 60, 400:90, 950: 90 },
     lightnessProgression: {600:6}, // ensures step 700 to be approx. 4.5 ratio towards white
   },
   {
