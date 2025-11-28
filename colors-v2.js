@@ -120,9 +120,9 @@ export const colorConfigs = [
     baseHue: 256.10,
     baseSaturation: 19.73,
     baseLightness: 41.96,
-    hueProgression: { 50: -10, 950: -5 },
+    hueProgression: { 50: -10, 950: 0 },
     // Slate: 0% of base saturation = fully desaturated (achromatic) for all tints/shades
-    saturationProgression: { 50: 0, 950: 0 },
+    saturationProgression: { 50: 20, 200:50, 800:100, 950: 20 },
   },
   {
     name: "neutral-500",
