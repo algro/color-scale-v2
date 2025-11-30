@@ -12,7 +12,7 @@ export const stepsCount = 13;
 export const defaults = {
   // Lightness anchors (absolute values at endpoints)
   startL: 98,    // Lightest tint at step 50 (absolute %)
-  endL: 9.5,     // Darkest shade at step 950 (absolute %)
+  endL: 9.8,     // Darkest shade at step 950 (absolute %)
 
   // Hue shifts in degrees for specific steps
   // Positive = warmer, negative = cooler
@@ -27,7 +27,7 @@ export const defaults = {
   // For shades (> 500): % progress from baseLightness to endL (9.5%)
   // Step 50 always = startL, step 950 always = endL (anchored, no need to specify)
   // Unspecified steps = linear interpolation between control points
-  lightnessProgression: { 100: 5, 150: 20, 400: 92, 600: 8, 850: 75, 900: 90 },
+  lightnessProgression: { 100: 5, 150: 20, 200: 40 ,400: 85, 600: 8, 850: 75, 900: 90 },
 };
 
 // 3) Export color configurations
@@ -36,12 +36,13 @@ export const defaults = {
 
 export const colorConfigs = [
   {
+    //500 is above Lc 60 and 600 is >= Lc 70
     name: "red-500",
-    baseHue: 19.86,
-    baseSaturation: 95.66,
-    baseLightness: 58.97,
+    baseHue: 20.06,
+    baseSaturation: 92.91,
+    baseLightness: 57.25,
     hueProgression: { 50: -8, 950: -5 },
-    lightnessProgression: {600:12}, // ensures step 600 to be approx. 4.5 ratio towards white 
+    //lightnessProgression: {600:12}, // Lc70 at 600
     
   },
   {
@@ -50,7 +51,7 @@ export const colorConfigs = [
     baseSaturation: 99.12,
     baseLightness: 71.32,
     hueProgression: { 50: 30, 950: -20 },
-    lightnessProgression: {600:4}, // ensures step 700 to be approx. 4.5 ratio towards white 
+    //lightnessProgression: {600:4}, // Lc70 at 700
   },
   {
     name: "yellow-500",
@@ -58,41 +59,36 @@ export const colorConfigs = [
     baseSaturation: 98.95,
     baseLightness: 79.85,
     hueProgression: { 50: 10, 950: -35 },
-    lightnessProgression: {600:3, 850:65, 900:85}, // yellow is a bit lighter in the shades
+    //lightnessProgression: {600:4, 850:65, 900:88}, // thats how you can override lightness progression for a specific color
   },
   {
     name: "green-500",
-    baseHue: 155.38,
-    baseSaturation: 94.24,
-    baseLightness: 69.06,
-    hueProgression: { 50: 15, 950: 12 },
-    lightnessProgression: {600:8}, // ensures step 700 to be approx. 4.5 ratio towards white
+    //Basehue is APCA 45, 
+    baseHue: 156.79,
+    baseSaturation: 81.95,
+    baseLightness: 76.10,
+    hueProgression: { 50: 15, 950: 10 },
   },
   {
     name: "teal-500",
-    baseHue: 181.77,
-    baseSaturation: 100,
-    baseLightness: 70.59,
+    baseHue: 181.55,
+    baseSaturation: 98.8,
+    baseLightness: 76.09,
     hueProgression: { 50: -5, 950: -5 },
-    lightnessProgression: {600:10}, // ensures step 700 to be approx. 4.5 ratio towards white
   },
   {
     name: "cyan-500",
-    baseHue: 223.86,
+    baseHue: 212.74,
     baseSaturation: 100,
-    baseLightness: 68.94,
+    baseLightness: 75.96,
     hueProgression: { 50: -5, 950: 0 },
-    //TODOOO fix saturation progression for cyan teal and green
-    saturationProgression: { 50: 60, 400:90, 950: 90 },
-    lightnessProgression: {600:6}, // ensures step 700 to be approx. 4.5 ratio towards white
   },
   {
     name: "blue-500",
-    baseHue: 254.09,
+    baseHue: 253.75,
     baseSaturation: 100.00,
-    baseLightness: 57.28,
+    baseLightness: 53.2,
     hueProgression: { 50: -5, 950: 5 },
-    lightnessProgression: {600:14.5}, // ensures step 600 to be approx. 4.5 ratio towards white
   },
   {
     name: "iris-500",
@@ -103,19 +99,17 @@ export const colorConfigs = [
   },
   {
     name: "magenta-500",
-    baseHue: 323.35,
-    baseSaturation: 92.88,
-    baseLightness: 56.56,
+    baseHue: 335.21,
+    baseSaturation: 91.50,
+    baseLightness: 58.02,
     hueProgression: { 50: -5, 950: 5 },
-    lightnessProgression: {600:8.5}, // ensures step 600 to be approx. 4.5 ratio towards white
   },
   {
     name: "rose-500",
-    baseHue: 1.98,
-    baseSaturation: 91.74,
-    baseLightness: 58.11,
+    baseHue: 358.96,
+    baseSaturation: 94.88,
+    baseLightness: 57.46,
     hueProgression: { 50: -4, 950: -12 },
-    lightnessProgression: {600:10.5}, // ensures step 600 to be approx. 4.5 ratio towards white
   },
   {
     name: "slate-500",

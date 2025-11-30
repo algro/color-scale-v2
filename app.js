@@ -5,6 +5,13 @@ import { computeContrastDotColor, rgbToOklab, rgbToOkhsl, findFirstContrastyShad
 // Make Color available globally for colors-utilities.js
 window.Color = Color;
 
+// APCA contrast configuration
+const CONTRAST_CONFIG = {
+  targetLc: 70, // Target APCA contrast value (Lc 65 is minimum for short 14px regular text)
+  method: 'APCA' // 'APCA' or 'WCAG21' for backwards compatibility
+};
+window.CONTRAST_CONFIG = CONTRAST_CONFIG;
+
 // Global storage for all color scales
 window.allColorScales = [];
 

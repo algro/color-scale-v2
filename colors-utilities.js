@@ -4,24 +4,18 @@
 // - In Node.js: provided by build.js via globalThis.Color
 
 /**
- * Computes the contrast dot color - prefers white unless it fails WCAG AA (4.5:1)
+ * Computes the contrast dot color using APCA
  * @param {string} hex - Hex color string (e.g., "#ff0000")
  * @returns {string} Either "#ffffff" or "#000000"
  */
 export function computeContrastDotColor(hex) {
-  const r = parseInt(hex.slice(1,3),16)/255;
-  const g = parseInt(hex.slice(3,5),16)/255;
-  const b = parseInt(hex.slice(5,7),16)/255;
-  const lumVals = [r,g,b].map(c =>
-    c <= 0.03928 ? c/12.92 : ((c+0.055)/1.055)**2.4
-  );
-  const L =
-    0.2126 * lumVals[0] +
-    0.7152 * lumVals[1] +
-    0.0722 * lumVals[2];
-  const contrastWhite = (1.0 + 0.05)/(L + 0.05);
-  // Always use white unless it fails WCAG AA (4.5:1)
-  return contrastWhite >= 4.5 ? "#ffffff" : "#000000";
+  const bg = new Color(hex);
+  const white = new Color('#ffffff');
+  
+  const apcaContrast = Math.abs(bg.contrast(white, window.CONTRAST_CONFIG.method));
+  
+  // Use white if it meets the target APCA contrast, otherwise use black
+  return apcaContrast >= window.CONTRAST_CONFIG.targetLc ? "#ffffff" : "#000000";
 }
 
 /**
@@ -65,32 +59,24 @@ export function oklchToHex({ L, C, H }) {
 }
 
 /**
- * Calculates the contrast ratio between a color and white
+ * Calculates the APCA contrast value between a color and white
  * @param {string} hex - Hex color string (e.g., "#ff0000")
- * @returns {number} Contrast ratio
+ * @returns {number} APCA contrast value (Lc)
  */
-export function getContrastRatioAgainstWhite(hex) {
-  const r = parseInt(hex.slice(1,3),16)/255;
-  const g = parseInt(hex.slice(3,5),16)/255;
-  const b = parseInt(hex.slice(5,7),16)/255;
-  const lumVals = [r,g,b].map(c =>
-    c <= 0.03928 ? c/12.92 : ((c+0.055)/1.055)**2.4
-  );
-  const L =
-    0.2126 * lumVals[0] +
-    0.7152 * lumVals[1] +
-    0.0722 * lumVals[2];
-  return (1.0 + 0.05)/(L + 0.05);
+export function getContrastAgainstWhite(hex) {
+  const bg = new Color(hex);
+  const white = new Color('#ffffff');
+  return Math.abs(bg.contrast(white, window.CONTRAST_CONFIG.method));
 }
 
 /**
- * Finds the index of the first shade with sufficient contrast against white (4.5:1)
+ * Finds the index of the first shade with sufficient APCA contrast against white
  * @param {Array<string>} hexValues - Array of hex color codes
  * @returns {number} Index of first contrasty shade, or -1 if none found
  */
 export function findFirstContrastyShade(hexValues) {
   for (let i = 0; i < hexValues.length; i++) {
-    if (getContrastRatioAgainstWhite(hexValues[i]) >= 4.5) {
+    if (getContrastAgainstWhite(hexValues[i]) >= window.CONTRAST_CONFIG.targetLc) {
       return i;
     }
   }
