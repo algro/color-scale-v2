@@ -52,15 +52,10 @@
         
 
         <div class="documentation">
-          <p>This color palette utilizes global progression curves for lightness and saturation, enabling precise color transitions with closely spaced color steps in the lightest tints and darkest shades:</p>
+          <p>This project generates 13-step color scales (from light tints to dark shades) for design systems. Each color starts as a base definition in the **OKhsl color space** (hue in degrees, saturation and lightness as percentages) because it provides perceptually uniform saturation across all hues—meaning 90% saturation looks equally vibrant whether it's blue, red, or yellow. We then convert each color to **OKLCH** (a related color space better suited for smooth lightness interpolation) to generate the 13 steps by progressively adjusting lightness and chroma values using customizable progression curves. Finally, each generated color is converted to hex format for use in CSS.</p>
           
-          <!--<div class="graph-container">
-            <img src="assets/graph.svg" alt="Color progression curve visualization" style="filter: invert(var(--filter-invert)); opacity: 0.8;">
-          </div>-->
-          
-          <p>Each color scale features hue progression, allowing individual colors to shift toward different hues in their lightest and darkest variants, creating more natural color relationships. The system leverages the OKHSL color space to maintain consistent perceived saturation across all hues, ensuring your color palette remains visually balanced.</p>
           <p>
-            The OKHSL color space implementation is based on
+            The OKHSL color space is based on
             <a
               href="https://bottosson.github.io/posts/colorpicker/#okhsl"
               target="_blank"
@@ -68,27 +63,14 @@
               >Björn Ottosson's research on perceptual color spaces</a
             >, which provides the mathematical foundation for achieving
             perceptually uniform saturation across different hues. Color space
-            conversions and utilities powered by
+            conversions powered by
             <a
               href="https://colorjs.io/"
               target="_blank"
               rel="noopener noreferrer"
-              >Color.js</a
-            >
-            OKLCH color space insights and visualization inspired by
-            <a
-              href="https://oklch.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              >OKLCH Color Picker & Converter</a
-            >
-            by Evil Martians. Inspired by
-            <a
-              href="https://tailwindcss.com/docs/customizing-colors"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Tailwind CSS's color system</a
-            >
+              >Color.js v0.6</a
+            > with native OKHSL support.
+            
           </p>
           <p>
             <a
@@ -105,7 +87,7 @@
             Copy scale
           </button>
         </div>
-        <p class="footnote">Last updated November 30, 2025</p>
+        <p class="footnote">Last updated December 1, 2025</p>
       </div>
       
     </div>

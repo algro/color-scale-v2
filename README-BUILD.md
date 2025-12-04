@@ -13,8 +13,8 @@ The build system automatically generates `color-scale.json` from the color confi
 **Generation (Build Time):**
 - **`colors.js`** - Color configurations (source of truth, build-time only)
 - **`scale.js`** - Scale generation algorithms (build-time only)
-- **`okhsl.js`** - OKhsl color space conversion utilities (build-time only)
 - **`build.js`** - Main build script that generates JSON from colors.js
+- **Color.js v0.6+** - Provides OKhsl color space conversions
 
 **Runtime (Browser):**
 - **`color-scale.json`** - Pre-generated color data (loaded by browser)
@@ -111,7 +111,7 @@ Copy-paste ready config:
         │  • colors.js                │
         │  • scale.js                 │
         │  • colors-utilities.js      │
-        │  • okhsl.js                 │
+        │  Import Color.js library    │
         │  Make Color globally avail. │
         └─────────────┬───────────────┘
                       │
@@ -398,6 +398,8 @@ Keep the browser open and refresh it after each build to see your color changes 
 ### Color Space: OKhsl
 
 OKhsl is used because it provides **perceptually uniform saturation** across all hues. Traditional HSL fails this test - 100% saturation in blue looks much more saturated than 100% saturation in yellow.
+
+The project uses Color.js v0.6.0+ which provides native OKhsl support based on [Björn Ottosson's algorithm](https://bottosson.github.io/posts/colorpicker/#okhsl).
 
 ### Why 13 Steps?
 

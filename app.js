@@ -1,13 +1,13 @@
 // app.js
 import Color from "https://colorjs.io/dist/color.js";
-import { computeContrastDotColor, rgbToOklab, rgbToOkhsl, findFirstContrastyShade } from "./colors-utilities.js";
+import { computeContrastDotColor, hexToOklchString, hexToOkhslString, findFirstContrastyShade } from "./colors-utilities.js";
 
 // Make Color available globally for colors-utilities.js
 window.Color = Color;
 
 // APCA contrast configuration
 const CONTRAST_CONFIG = {
-  targetLc: 70, // Target APCA contrast value (Lc 65 is minimum for short 14px regular text)
+  targetLc: 65, // Target APCA contrast value (Lc 65 is minimum for short 14px regular text)
   method: 'APCA' // 'APCA' or 'WCAG21' for backwards compatibility
 };
 window.CONTRAST_CONFIG = CONTRAST_CONFIG;
@@ -80,9 +80,9 @@ function createScaleRow(colorName, hexValues, steps, rowIndex) {
       const stepName = `${colorName}-${steps[idx]}`;
       let colorValue;
       if (window.displayFormat === 'oklch') {
-        colorValue = rgbToOklab(hex);
+        colorValue = hexToOklchString(hex);
       } else if (window.displayFormat === 'okhsl') {
-        colorValue = rgbToOkhsl(hex);
+        colorValue = hexToOkhslString(hex);
       } else {
         colorValue = hex;
       }
@@ -95,9 +95,9 @@ function createScaleRow(colorName, hexValues, steps, rowIndex) {
       const stepName = `${colorName}-${steps[idx]}`;
       let toCopy;
       if (window.displayFormat === 'oklch') {
-        toCopy = rgbToOklab(hex);
+        toCopy = hexToOklchString(hex);
       } else if (window.displayFormat === 'okhsl') {
-        toCopy = rgbToOkhsl(hex);
+        toCopy = hexToOkhslString(hex);
       } else {
         toCopy = hex;
       }

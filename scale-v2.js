@@ -1,6 +1,6 @@
 // scale-v2.js - Simplified progression array system for color scale generation
 
-import { okhslToOKLCH, oklchToOKhsl } from './okhsl.js';
+import Color from 'colorjs.io';
 
 /**
  * Note: At extreme lightness values (very dark < 10% or very light > 95%) 
@@ -128,11 +128,12 @@ export function generateScale({
   saturationProgression = {},
   lightnessProgression = {}
 }) {
-  // Convert base color to OKLCH
-  const baseOKLCH = okhslToOKLCH(baseHue / 360, baseSaturation / 100, baseLightness / 100);
-  const baseL = baseOKLCH.L;
-  const baseC = baseOKLCH.C;
-  const baseH = baseOKLCH.H;
+  // Convert base color from OKhsl to OKLCH using Color.js
+  const baseColor = new Color("okhsl", [baseHue, baseSaturation / 100, baseLightness / 100]);
+  const baseOklch = baseColor.to("oklch");
+  const baseL = baseOklch.coords[0] * 100;  // Convert 0-1 to 0-100
+  const baseC = baseOklch.coords[1];
+  const baseH = baseOklch.coords[2];
 
   // Build complete control point maps (tints + base + shades)
   const hueControls = {
@@ -189,9 +190,14 @@ export function generateScale({
     const S = interpolateValue(step, satControls) / 100;
     const L = interpolateValue(step, lightControls) / 100;
 
-    // Convert OKhsl to OKLCH
-    const oklch = okhslToOKLCH(H / 360, S, L);
-    scale.push(oklch);
+    // Convert OKhsl to OKLCH using Color.js
+    const color = new Color("okhsl", [H, S, L]);
+    const oklch = color.to("oklch");
+    scale.push({
+      L: oklch.coords[0] * 100,  // Convert 0-1 to 0-100
+      C: oklch.coords[1],
+      H: oklch.coords[2] ?? 0    // Hue is undefined for achromatic colors
+    });
   }
 
   return scale;

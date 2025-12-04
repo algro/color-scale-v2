@@ -19,43 +19,24 @@ export function computeContrastDotColor(hex) {
 }
 
 /**
- * Converts a hex color to OKLCH format string with percentage lightness
+ * Converts a hex color to OKLCH format string for display
  * @param {string} hex - Hex color string (e.g., "#ff0000")
  * @returns {string} OKLCH color string (e.g., "oklch(62.8% 0.257 29.2)")
  */
-export function rgbToOklab(hex) {
-  // Let Color.js convert hex → "oklch([L01, C04, Hdeg])"
-  const [L01, C04, Hdeg] = new Color(hex).to("oklch").coords;
-  // Convert L to percentage format for consistency with CSS and design tools
-  const Lpct = (L01 * 100).toFixed(1) + '%';
-  return `oklch(${Lpct} ${C04.toFixed(3)} ${Hdeg.toFixed(1)})`;
+export function hexToOklchString(hex) {
+  const [L, C, H] = new Color(hex).to("oklch").coords;
+  const Lpct = (L * 100).toFixed(1) + '%';
+  return `oklch(${Lpct} ${C.toFixed(3)} ${H.toFixed(1)})`;
 }
 
 /**
- * Converts a hex color to OKhsl format string
+ * Converts a hex color to OKhsl format string for display
  * @param {string} hex - Hex color string (e.g., "#ff0000")
  * @returns {string} OKhsl color string (e.g., "okhsl(29.2, 100%, 62.8%)")
  */
-export function rgbToOkhsl(hex) {
-  const [H, S01, L01] = new Color(hex).to("okhsl").coords;
-  const Spct = (S01 * 100).toFixed(1);
-  const Lpct = (L01 * 100).toFixed(1);
-  const Hdeg = H.toFixed(1);
-  return `okhsl(${Hdeg}, ${Spct}%, ${Lpct}%)`;
-}
-
-/**
- * Converts OKLCH coordinates to hex color string
- * @param {Object} param - OKLCH coordinates object
- * @param {number} param.L - Lightness (0-100)
- * @param {number} param.C - Chroma (0-0.4)  
- * @param {number} param.H - Hue in degrees
- * @returns {string} Hex color string (e.g., "#ff0000")
- */
-export function oklchToHex({ L, C, H }) {
-  return new Color("oklch", [L / 100, C, H])
-           .to("srgb")
-           .toString({ format: "hex", alpha: false, collapse: false });
+export function hexToOkhslString(hex) {
+  const [H, S, L] = new Color(hex).to("okhsl").coords;
+  return `okhsl(${H.toFixed(1)}, ${(S * 100).toFixed(1)}%, ${(L * 100).toFixed(1)}%)`;
 }
 
 /**

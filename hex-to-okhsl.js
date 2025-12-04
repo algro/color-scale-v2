@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 // hex-to-okhsl.js - Convert hex color to precise OKhsl values
 import Color from 'colorjs.io';
-import { oklchToOKhsl } from './okhsl.js';
 
 // Get hex from command line argument
 const hex = process.argv[2];
@@ -30,11 +29,12 @@ try {
     C = 0;  // Ensure chroma is exactly 0
   }
   
-  // Convert OKLCH to OKhsl using our custom implementation
-  const { h, s, l } = oklchToOKhsl(L * 100, C, H);
+  // Convert OKLCH to OKhsl using Color.js
+  const okhslColor = color.to("okhsl");
+  let [h, s, l] = okhslColor.coords;
   
-  // For achromatic colors, ensure h and s are 0 (not NaN)
-  const hNormalized = isAchromatic ? 0 : h;
+  // For achromatic colors, ensure h and s are 0 (not NaN/undefined)
+  const hNormalized = isAchromatic ? 0 : (h / 360);  // Color.js returns hue in degrees, normalize to 0-1
   const sNormalized = isAchromatic ? 0 : s;
   
   // Convert to degrees and percentages for display

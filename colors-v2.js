@@ -12,7 +12,7 @@ export const stepsCount = 13;
 export const defaults = {
   // Lightness anchors (absolute values at endpoints)
   startL: 98,    // Lightest tint at step 50 (absolute %)
-  endL: 9.8,     // Darkest shade at step 950 (absolute %)
+  endL: 8,     // Darkest shade at step 950 (absolute %)
 
   // Hue shifts in degrees for specific steps
   // Positive = warmer, negative = cooler
@@ -122,6 +122,15 @@ export const colorConfigs = [
   },
   {
     name: "neutral-500",
+    baseHue: 0,
+    baseSaturation: 0,
+    baseLightness: 42.08,
+    hueProgression: { 50: 0, 950: 0 },
+    // Neutral: 0% of base (which is already 0%) = true grayscale (no color)
+    saturationProgression: { 50: 0, 950: 0 },
+  },
+  {
+    name: "rando-500",
     baseHue: 0,
     baseSaturation: 0,
     baseLightness: 42.08,
