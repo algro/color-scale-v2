@@ -51,17 +51,79 @@ export function getContrastAgainstWhite(hex) {
 }
 
 /**
- * Finds the index of the first shade with sufficient APCA contrast against white
+ * Finds the index of the first shade with sufficient APCA contrast (white text on color)
  * @param {Array<string>} hexValues - Array of hex color codes
+ * @param {number} targetLc - Target Lc value (default: 60)
  * @returns {number} Index of first contrasty shade, or -1 if none found
  */
-export function findFirstContrastyShade(hexValues) {
+export function findFirstContrastyShade(hexValues, targetLc = 60) {
   for (let i = 0; i < hexValues.length; i++) {
-    if (getContrastAgainstWhite(hexValues[i]) >= window.CONTRAST_CONFIG.targetLc) {
+    // White text on color background
+    const bg = new Color(hexValues[i]);
+    const white = new Color('#ffffff');
+    const contrast = Math.abs(bg.contrast(white, window.CONTRAST_CONFIG.method));
+    if (contrast >= targetLc) {
       return i;
     }
   }
   return -1;
+}
+
+/**
+ * Finds the index of the first shade where color on white meets Lc75
+ * @param {Array<string>} hexValues - Array of hex color codes
+ * @returns {number} Index of first shade meeting Lc75, or -1 if none found
+ */
+export function findFirstLc75Shade(hexValues) {
+  for (let i = 0; i < hexValues.length; i++) {
+    // Color text on white background
+    const color = new Color(hexValues[i]);
+    const white = new Color('#ffffff');
+    const contrast = Math.abs(white.contrast(color, window.CONTRAST_CONFIG.method));
+    if (contrast >= 75) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+/**
+ * Checks which swatches meet each contrast criterion
+ * @param {Array<string>} hexValues - Array of hex color codes
+ * @returns {Object} Object with arrays of booleans for each contrast type
+ */
+export function getContrastMasks(hexValues) {
+  const white = new Color('#ffffff');
+  const black = new Color('#000000');
+  
+  const masks = {
+    'lc60-white': [],  // White on color >= Lc60
+    'lc75-white': [],  // Color on white >= Lc75
+    'lc60-black': [],  // Black on color >= Lc60
+    'lc75-black': []   // Color on black >= Lc75
+  };
+  
+  for (let i = 0; i < hexValues.length; i++) {
+    const color = new Color(hexValues[i]);
+    
+    // White on color (color as background, white as text)
+    const whiteOnColor = Math.abs(color.contrast(white, window.CONTRAST_CONFIG.method));
+    masks['lc60-white'].push(whiteOnColor >= 60);
+    
+    // Color on white (white as background, color as text)
+    const colorOnWhite = Math.abs(white.contrast(color, window.CONTRAST_CONFIG.method));
+    masks['lc75-white'].push(colorOnWhite >= 75);
+    
+    // Black on color (color as background, black as text)
+    const blackOnColor = Math.abs(color.contrast(black, window.CONTRAST_CONFIG.method));
+    masks['lc60-black'].push(blackOnColor >= 60);
+    
+    // Color on black (black as background, color as text)
+    const colorOnBlack = Math.abs(black.contrast(color, window.CONTRAST_CONFIG.method));
+    masks['lc75-black'].push(colorOnBlack >= 75);
+  }
+  
+  return masks;
 }
 
  

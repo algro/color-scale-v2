@@ -27,7 +27,7 @@ export const defaults = {
   // For shades (> 500): % progress from baseLightness to endL (9.5%)
   // Step 50 always = startL, step 950 always = endL (anchored, no need to specify)
   // Unspecified steps = linear interpolation between control points
-  lightnessProgression: { 100: 5, 150: 20, 200: 40 ,400: 85, 600: 8, 850: 75, 900: 90 },
+  lightnessProgression: { 100: 5, 150: 20, 200: 40 ,400: 85, 600: 10, 850: 75, 900: 90 },
 };
 
 // 3) Export color configurations
@@ -47,11 +47,11 @@ export const colorConfigs = [
   },
   {
     name: "orange-500",
-    baseHue: 55.72,
-    baseSaturation: 99.12,
-    baseLightness: 71.32,
+    baseHue: 54.70,
+    baseSaturation: 98.06,
+    baseLightness: 70.05,
     hueProgression: { 50: 30, 950: -20 },
-    //lightnessProgression: {600:4}, // Lc70 at 700
+    lightnessProgression: {600: 10}, // darker than others to meet Lc60 target
   },
   {
     name: "yellow-500",
@@ -62,38 +62,42 @@ export const colorConfigs = [
     //lightnessProgression: {600:4, 850:65, 900:88}, // thats how you can override lightness progression for a specific color
   },
   {
+    // White on 600 is Lc60, on 700 Lc75 ✅  
     name: "green-500",
-    //Basehue is APCA 45, 
-    baseHue: 156.79,
-    baseSaturation: 81.95,
-    baseLightness: 76.10,
+    baseHue: 150.39,
+    baseSaturation: 91.86,
+    baseLightness: 65.03,
     hueProgression: { 50: 15, 950: 10 },
   },
   {
+     // White on 600 is Lc60, on 700 Lc75 ✅  
     name: "teal-500",
-    baseHue: 181.55,
-    baseSaturation: 98.8,
-    baseLightness: 76.09,
+    baseHue: 182.85,
+    baseSaturation: 97.10,
+    baseLightness: 67.18,
+    lightnessProgression: {600: 13}, // darker than others to meet Lc60 target
     hueProgression: { 50: -5, 950: -5 },
   },
   {
+    // White on 600 is Lc60, on 700 Lc75 ✅ 
     name: "cyan-500",
-    baseHue: 212.74,
-    baseSaturation: 100,
-    baseLightness: 75.96,
+    baseHue: 217.66,
+    baseSaturation: 96.02,
+    baseLightness: 66.10,
+    //lightnessProgression: {600: 11}, // darker than others to meet Lc60 target
     hueProgression: { 50: -5, 950: 0 },
   },
   {
     name: "blue-500",
-    baseHue: 253.75,
-    baseSaturation: 100.00,
-    baseLightness: 53.2,
+    baseHue: 250.41,
+    baseSaturation: 93.95,
+    baseLightness: 60.67,
     hueProgression: { 50: -5, 950: 5 },
   },
   {
     name: "iris-500",
     baseHue: 283.66,
-    baseSaturation: 97.88,
+    baseSaturation: 100.00,
     baseLightness: 49.21,
     hueProgression: { 50: -5, 950: 7 },
   },
@@ -105,7 +109,7 @@ export const colorConfigs = [
     hueProgression: { 50: -5, 950: 5 },
   },
   {
-    name: "rose-500",
+    name: "pink-500",
     baseHue: 358.96,
     baseSaturation: 94.88,
     baseLightness: 57.46,
@@ -121,6 +125,15 @@ export const colorConfigs = [
     saturationProgression: { 50: 20, 200:50, 800:100, 950: 20 },
   },
   {
+    name: "rando-500",
+    baseHue: 274.87,
+    baseSaturation: 23.64,
+    baseLightness: 39.85,
+    hueProgression: { 50: -10, 950: 10 },
+    // Neutral: 0% of base (which is already 0%) = true grayscale (no color)
+    saturationProgression: { 50: 50, 950: 100 },
+  },
+  {
     name: "neutral-500",
     baseHue: 0,
     baseSaturation: 0,
@@ -128,14 +141,6 @@ export const colorConfigs = [
     hueProgression: { 50: 0, 950: 0 },
     // Neutral: 0% of base (which is already 0%) = true grayscale (no color)
     saturationProgression: { 50: 0, 950: 0 },
-  },
-  {
-    name: "rando-500",
-    baseHue: 0,
-    baseSaturation: 0,
-    baseLightness: 42.08,
-    hueProgression: { 50: 0, 950: 0 },
-    // Neutral: 0% of base (which is already 0%) = true grayscale (no color)
-    saturationProgression: { 50: 0, 950: 0 },
   }
+  
 ];

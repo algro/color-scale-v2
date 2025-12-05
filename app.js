@@ -1,13 +1,13 @@
 // app.js
 import Color from "https://colorjs.io/dist/color.js";
-import { computeContrastDotColor, hexToOklchString, hexToOkhslString, findFirstContrastyShade } from "./colors-utilities.js";
+import { computeContrastDotColor, hexToOklchString, hexToOkhslString, getContrastMasks } from "./colors-utilities.js";
 
 // Make Color available globally for colors-utilities.js
 window.Color = Color;
 
 // APCA contrast configuration
 const CONTRAST_CONFIG = {
-  targetLc: 65, // Target APCA contrast value (Lc 65 is minimum for short 14px regular text)
+  targetLc: 60, // Target APCA contrast value (Lc 65 is minimum for short 14px regular text)
   method: 'APCA' // 'APCA' or 'WCAG21' for backwards compatibility
 };
 window.CONTRAST_CONFIG = CONTRAST_CONFIG;
@@ -51,8 +51,8 @@ function createScaleRow(colorName, hexValues, steps, rowIndex) {
   const swatchContainer = document.createElement("div");
   swatchContainer.className = "swatch-container";
 
-  // Find the first shade with sufficient contrast against white
-  const contrastyShadeIndex = findFirstContrastyShade(hexValues);
+  // Get contrast masks for all swatches
+  const contrastMasks = getContrastMasks(hexValues);
 
   hexValues.forEach((hex, idx) => {
     const sw = document.createElement("div");
@@ -69,12 +69,11 @@ function createScaleRow(colorName, hexValues, steps, rowIndex) {
     sw.appendChild(tooltip);
     sw.appendChild(contrastDot);
 
-    // Add white triangle indicator to the first contrasty shade
-    if (idx === contrastyShadeIndex) {
-      const indicator = document.createElement("div");
-      indicator.className = "contrast-indicator";
-      sw.appendChild(indicator);
-    }
+    // Store contrast data on swatch for visibility toggling
+    const modes = ['lc60-white', 'lc75-white', 'lc60-black', 'lc75-black'];
+    modes.forEach(mode => {
+      sw.dataset[mode.replace('-', '')] = contrastMasks[mode][idx] ? '1' : '0';
+    });
 
     sw.addEventListener("mouseenter", () => {
       const stepName = `${colorName}-${steps[idx]}`;
@@ -227,3 +226,62 @@ function toggleDarkMode() {
 
 // Initialize dark mode
 initDarkMode();
+
+// Contrast controls - initialize after DOM is ready
+function initContrastControls() {
+  const contrastToggle = document.getElementById('contrast-toggle');
+  const contrastOptions = document.getElementById('contrast-options');
+  const contrastRadios = document.querySelectorAll('input[name="contrast-mode"]');
+  
+  if (!contrastToggle) return; // Exit if elements don't exist
+  
+  // Update swatch visibility based on contrast mode
+  function updateContrastVisibility() {
+    const isActive = contrastToggle.checked;
+    const selectedMode = document.querySelector('input[name="contrast-mode"]:checked')?.value || 'lc60-white';
+    // Convert mode to data attribute name (e.g., 'lc60-white' -> 'lc60white')
+    const dataAttr = selectedMode.replace('-', '');
+    
+    // Toggle contrast-active class on scales container
+    const scalesContainer = document.querySelector('.scales-container');
+    if (isActive) {
+      scalesContainer.classList.add('contrast-active');
+      scalesContainer.dataset.contrastMode = dataAttr;
+    } else {
+      scalesContainer.classList.remove('contrast-active');
+      delete scalesContainer.dataset.contrastMode;
+    }
+    
+    // Update swatch visibility
+    document.querySelectorAll('.swatch').forEach(swatch => {
+      if (isActive) {
+        const meetsContrast = swatch.dataset[dataAttr] === '1';
+        swatch.classList.toggle('contrast-hidden', !meetsContrast);
+      } else {
+        swatch.classList.remove('contrast-hidden');
+      }
+    });
+  }
+  
+  // Toggle event
+  contrastToggle.addEventListener('change', () => {
+    if (contrastToggle.checked) {
+      contrastOptions.classList.remove('hidden');
+    } else {
+      contrastOptions.classList.add('hidden');
+    }
+    updateContrastVisibility();
+  });
+  
+  // Radio change events
+  contrastRadios.forEach(radio => {
+    radio.addEventListener('change', updateContrastVisibility);
+  });
+}
+
+// Initialize contrast controls
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initContrastControls);
+} else {
+  initContrastControls();
+}

@@ -34,7 +34,7 @@ try {
   let [h, s, l] = okhslColor.coords;
   
   // For achromatic colors, ensure h and s are 0 (not NaN/undefined)
-  const hNormalized = isAchromatic ? 0 : (h / 360);  // Color.js returns hue in degrees, normalize to 0-1
+  const hNormalized = isAchromatic ? 0 : (h / 360);
   const sNormalized = isAchromatic ? 0 : s;
   
   // Convert to degrees and percentages for display
@@ -42,60 +42,31 @@ try {
   const sPercent = sNormalized * 100;
   const lPercent = l * 100;
   
+  // Calculate APCA contrast values
+  const white = new Color('#ffffff');
+  const black = new Color('#000000');
+  
+  // APCA: background.contrast(text, "APCA")
+  const whiteOnColor = Math.abs(color.contrast(white, "APCA"));  // color bg, white text
+  const blackOnColor = Math.abs(color.contrast(black, "APCA"));  // color bg, black text
+  const colorOnWhite = Math.abs(white.contrast(color, "APCA"));  // white bg, color text
+  const colorOnBlack = Math.abs(black.contrast(color, "APCA"));  // black bg, color text
+  
   // Display results
-  console.log('\n🎨 Hex to OKhsl Conversion\n');
-  console.log(`Input:  ${normalizedHex.toUpperCase()}`);
-  console.log(`Output: oklch(${(L * 100).toFixed(2)}% ${C.toFixed(4)} ${H.toFixed(2)}°)`);
-  
-  if (isAchromatic) {
-    console.log('        ⚠️  Achromatic color (gray) - hue and saturation set to 0\n');
-  } else {
-    console.log('');
-  }
-  
-  console.log('━'.repeat(50));
-  console.log('OKhsl Values (0-1 normalized):');
-  console.log('━'.repeat(50));
-  console.log(`  h: ${hNormalized.toFixed(6)}`);
-  console.log(`  s: ${sNormalized.toFixed(6)}`);
-  console.log(`  l: ${l.toFixed(6)}\n`);
-  
-  console.log('━'.repeat(50));
-  console.log('OKhsl Values (degrees/percentages):');
-  console.log('━'.repeat(50));
-  console.log(`  baseHue:        ${hDegrees.toFixed(2)}  // degrees (0-360°)`);
-  console.log(`  baseSaturation: ${sPercent.toFixed(2)}  // percentage (0-100)`);
-  console.log(`  baseLightness:  ${lPercent.toFixed(2)}  // percentage (0-100)\n`);
-  
-  console.log('━'.repeat(50));
-  console.log('Copy-paste ready config:');
-  console.log('━'.repeat(50));
-  
-  if (isAchromatic) {
-    console.log(`{
-  name: "gray-500",  // Achromatic color
-  baseHue: ${hDegrees.toFixed(2)},
-  baseSaturation: ${sPercent.toFixed(2)},
-  baseLightness: ${lPercent.toFixed(2)},
-  startHueShift: 0,
-  endHueShift: 0,
-  startS: 0,  // No saturation (pure grayscale)
-  endS: 0     // No saturation (pure grayscale)
-}\n`);
-  } else {
-    console.log(`{
-  name: "color-500",
-  baseHue: ${hDegrees.toFixed(2)},
-  baseSaturation: ${sPercent.toFixed(2)},
-  baseLightness: ${lPercent.toFixed(2)},
-  startHueShift: 0,
-  endHueShift: 0
-}\n`);
-  }
+  console.log(`\nInput: ${normalizedHex.toUpperCase()}`);
+  console.log('\n------\n');
+  console.log(`baseHue: ${hDegrees.toFixed(2)}`);
+  console.log(`baseSaturation: ${sPercent.toFixed(2)}`);
+  console.log(`baseLightness: ${lPercent.toFixed(2)}`);
+  console.log('\n------\n');
+  console.log(`White on color: Lc ${whiteOnColor.toFixed(1)}`);
+  console.log(`Black on color: Lc ${blackOnColor.toFixed(1)}`);
+  console.log(`Color on white: Lc ${colorOnWhite.toFixed(1)}`);
+  console.log(`Color on black: Lc ${colorOnBlack.toFixed(1)}`);
+  console.log('');
 
 } catch (error) {
   console.error(`❌ Error: Invalid hex color "${hex}"`);
   console.error(`   ${error.message}`);
   process.exit(1);
 }
-
