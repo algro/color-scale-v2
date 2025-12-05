@@ -116,15 +116,6 @@ export const colorConfigs = [
     hueProgression: { 50: -4, 950: -12 },
   },
   {
-    name: "slate-500",
-    baseHue: 256.10,
-    baseSaturation: 19.73,
-    baseLightness: 41.96,
-    hueProgression: { 50: -10, 950: 0 },
-    // Slate: 0% of base saturation = fully desaturated (achromatic) for all tints/shades
-    saturationProgression: { 50: 20, 200:50, 800:100, 950: 20 },
-  },
-  {
     name: "rando-500",
     baseHue: 274.87,
     baseSaturation: 23.64,
@@ -132,6 +123,15 @@ export const colorConfigs = [
     hueProgression: { 50: -10, 950: 10 },
     // Neutral: 0% of base (which is already 0%) = true grayscale (no color)
     saturationProgression: { 50: 50, 950: 100 },
+  },
+  {
+    name: "slate-500",
+    baseHue: 256.10,
+    baseSaturation: 19.73,
+    baseLightness: 41.96,
+    hueProgression: { 50: -10, 950: 0 },
+    // Slate: 0% of base saturation = fully desaturated (achromatic) for all tints/shades
+    saturationProgression: { 50: 20, 200:50, 800:100, 950: 20 },
   },
   {
     name: "neutral-500",
