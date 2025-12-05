@@ -12,7 +12,7 @@ export const stepsCount = 13;
 export const defaults = {
   // Lightness anchors (absolute values at endpoints)
   startL: 98,    // Lightest tint at step 50 (absolute %)
-  endL: 8,     // Darkest shade at step 950 (absolute %)
+  endL: 6,     // Darkest shade at step 950 (absolute %)
 
   // Hue shifts in degrees for specific steps
   // Positive = warmer, negative = cooler
@@ -27,7 +27,7 @@ export const defaults = {
   // For shades (> 500): % progress from baseLightness to endL (9.5%)
   // Step 50 always = startL, step 950 always = endL (anchored, no need to specify)
   // Unspecified steps = linear interpolation between control points
-  lightnessProgression: { 100: 5, 150: 20, 200: 40 ,400: 85, 600: 10, 850: 75, 900: 90 },
+  lightnessProgression: { 100: 5, 150: 20, 200: 40 ,400: 85, 600: 10, 850: 75, 900: 92 },
 };
 
 // 3) Export color configurations
