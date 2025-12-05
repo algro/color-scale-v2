@@ -9,9 +9,5 @@ npm install
 npm run build  # Generates color-scale-v2.json and starts server at localhost:8000
 ```
 
-## Dev Tools
-
-- **`contrast-analyzer.html`** - APCA contrast analysis tool showing which steps meet Lc 60/75 targets for all text/background combinations. Perfect for tweaking base colors and progressions.
-
 See [README-BUILD.md](README-BUILD.md) for detailed documentation.
 
