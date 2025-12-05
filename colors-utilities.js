@@ -97,30 +97,25 @@ export function getContrastMasks(hexValues) {
   const black = new Color('#000000');
   
   const masks = {
-    'lc60-white': [],  // White on color >= Lc60
-    'lc75-white': [],  // Color on white >= Lc75
-    'lc60-black': [],  // Black on color >= Lc60
-    'lc75-black': []   // Color on black >= Lc75
+    'lc60-white': [],  // White on color >= Lc60 (APCA)
+    'lc75-white': [],  // Color on white >= Lc75 (APCA)
+    'wcag-black': []   // Color vs black >= 4.5:1 (WCAG AA)
   };
   
   for (let i = 0; i < hexValues.length; i++) {
     const color = new Color(hexValues[i]);
     
-    // White on color (color as background, white as text)
-    const whiteOnColor = Math.abs(color.contrast(white, window.CONTRAST_CONFIG.method));
+    // White on color (color as background, white as text) - APCA
+    const whiteOnColor = Math.abs(color.contrast(white, 'APCA'));
     masks['lc60-white'].push(whiteOnColor >= 60);
     
-    // Color on white (white as background, color as text)
-    const colorOnWhite = Math.abs(white.contrast(color, window.CONTRAST_CONFIG.method));
+    // Color on white (white as background, color as text) - APCA
+    const colorOnWhite = Math.abs(white.contrast(color, 'APCA'));
     masks['lc75-white'].push(colorOnWhite >= 75);
     
-    // Black on color (color as background, black as text)
-    const blackOnColor = Math.abs(color.contrast(black, window.CONTRAST_CONFIG.method));
-    masks['lc60-black'].push(blackOnColor >= 60);
-    
-    // Color on black (black as background, color as text)
-    const colorOnBlack = Math.abs(black.contrast(color, window.CONTRAST_CONFIG.method));
-    masks['lc75-black'].push(colorOnBlack >= 75);
+    // Color vs black - WCAG 2.1 (symmetric, 4.5:1 for AA)
+    const wcagBlack = color.contrast(black, 'WCAG21');
+    masks['wcag-black'].push(wcagBlack >= 4.5);
   }
   
   return masks;

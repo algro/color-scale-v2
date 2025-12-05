@@ -70,7 +70,7 @@ function createScaleRow(colorName, hexValues, steps, rowIndex) {
     sw.appendChild(contrastDot);
 
     // Store contrast data on swatch for visibility toggling
-    const modes = ['lc60-white', 'lc75-white', 'lc60-black', 'lc75-black'];
+    const modes = ['lc60-white', 'lc75-white', 'wcag-black'];
     modes.forEach(mode => {
       sw.dataset[mode.replace('-', '')] = contrastMasks[mode][idx] ? '1' : '0';
     });
