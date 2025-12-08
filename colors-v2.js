@@ -11,7 +11,7 @@ export const stepsCount = 13;
 
 export const defaults = {
   // Lightness anchors (absolute values at endpoints)
-  startL: 98,    // Lightest tint at step 50 (absolute %)
+  startL: 97,    // Lightest tint at step 50 (absolute %)
   endL: 6,     // Darkest shade at step 950 (absolute %)
 
   // Hue shifts in degrees for specific steps
@@ -20,7 +20,7 @@ export const defaults = {
 
   // Saturation as % of base saturation (RELATIVE)
   // (e.g., if base=95% and step 50=60%, result is 95% * 60% = 57%)
-  saturationProgression: { 50: 50, 950: 90 },
+  saturationProgression: { 50: 75, 950: 90 },
 
   // Lightness as % of range between anchors (RELATIVE)
   // For tints (< 500): % progress from startL (98%) to baseLightness
@@ -42,22 +42,20 @@ export const colorConfigs = [
     baseSaturation: 92.91,
     baseLightness: 57.25,
     hueProgression: { 50: -8, 950: -5 },
-    //lightnessProgression: {600:12}, // Lc70 at 600
-    
   },
   {
     name: "orange-500",
     baseHue: 44.73,
     baseSaturation: 94.07,
     baseLightness: 65.14,
-    hueProgression: { 50: 10, 950: -15 },
+    hueProgression: { 50: 20, 950: -15 },
   },
   {
     name: "amber-500",
     baseHue: 67.51,
     baseSaturation: 99.60,
     baseLightness: 73.37,
-    hueProgression: { 50: 10, 950: -25 },
+    hueProgression: { 50: 20, 950: -25 },
     lightnessProgression: {700: 32}, 
   },
   {
@@ -66,8 +64,7 @@ export const colorConfigs = [
     baseSaturation: 98.95,
     baseLightness: 79.85,
     hueProgression: { 50: 10, 950: -25 },
-    lightnessProgression: {700: 25}, 
-    //lightnessProgression: {600:4, 850:65, 900:88}, // thats how you can override lightness progression for a specific color
+    lightnessProgression: {700: 30}, 
   },
   {
     name: "lime-500",
@@ -75,7 +72,7 @@ export const colorConfigs = [
     baseSaturation: 90.84,
     baseLightness: 76.79,
     hueProgression: { 50: 10, 950: 10 },
-    lightnessProgression: {700: 22}, 
+    lightnessProgression: {700: 30}, 
   },
   {
     // White on 600 is Lc60, on 700 Lc75 ✅  
@@ -84,7 +81,6 @@ export const colorConfigs = [
     baseSaturation: 91.86,
     baseLightness: 65.03,
     hueProgression: { 50: -10, 950: 10 },
-    lightnessProgression: {700: 30}, 
   },
   {
      // White on 600 is Lc60, on 700 Lc75 ✅  
@@ -142,9 +138,9 @@ export const colorConfigs = [
     name: "rando-500",
     baseHue: 274.87,
     baseSaturation: 23.64,
+    startL: 98,
     baseLightness: 39.85,
     hueProgression: { 50: -10, 950: 10 },
-    // Neutral: 0% of base (which is already 0%) = true grayscale (no color)
     saturationProgression: { 50: 50, 950: 100 },
     lightnessProgression: {400: 84}, // to meet 4.5 in 400 vs black
      
@@ -153,9 +149,9 @@ export const colorConfigs = [
     name: "slate-500",
     baseHue: 256.10,
     baseSaturation: 19.73,
+    startL: 98,
     baseLightness: 41.96,
     hueProgression: { 50: -10, 950: 0 },
-    // Slate: 0% of base saturation = fully desaturated (achromatic) for all tints/shades
     saturationProgression: { 50: 20, 200:50, 800:100, 950: 20 },
     
   },
@@ -163,6 +159,7 @@ export const colorConfigs = [
     name: "neutral-500",
     baseHue: 0,
     baseSaturation: 0,
+    startL: 98,
     baseLightness: 42.08,
     hueProgression: { 50: 0, 950: 0 },
     // Neutral: 0% of base (which is already 0%) = true grayscale (no color)
