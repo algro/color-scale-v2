@@ -16,11 +16,11 @@ export const defaults = {
 
   // Hue shifts in degrees for specific steps
   // Positive = warmer, negative = cooler
-  hueProgression: { 50: -10, 950: -10 },
+  hueProgression: { 50: -10, 950: 10 },
 
   // Saturation as % of base saturation (RELATIVE)
   // (e.g., if base=95% and step 50=60%, result is 95% * 60% = 57%)
-  saturationProgression: { 50: 60, 950: 90 },
+  saturationProgression: { 50: 50, 950: 90 },
 
   // Lightness as % of range between anchors (RELATIVE)
   // For tints (< 500): % progress from startL (98%) to baseLightness
@@ -50,7 +50,7 @@ export const colorConfigs = [
     baseHue: 54.70,
     baseSaturation: 98.06,
     baseLightness: 70.05,
-    hueProgression: { 50: 30, 950: -20 },
+    hueProgression: { 50: 10, 950: -20 },
     lightnessProgression: {600: 10}, // darker than others to meet Lc60 target
   },
   {
@@ -67,7 +67,7 @@ export const colorConfigs = [
     baseHue: 150.39,
     baseSaturation: 91.86,
     baseLightness: 65.03,
-    hueProgression: { 50: 15, 950: 10 },
+    hueProgression: { 50: -10, 950: 10 },
   },
   {
      // White on 600 is Lc60, on 700 Lc75 ✅  
@@ -76,7 +76,7 @@ export const colorConfigs = [
     baseSaturation: 97.10,
     baseLightness: 67.18,
     lightnessProgression: {600: 13}, // darker than others to meet Lc60 target
-    hueProgression: { 50: -5, 950: -5 },
+    hueProgression: { 50: -10, 950: 5 },
   },
   {
     // White on 600 is Lc60, on 700 Lc75 ✅ 
@@ -85,7 +85,7 @@ export const colorConfigs = [
     baseSaturation: 96.02,
     baseLightness: 66.10,
     //lightnessProgression: {600: 11}, // darker than others to meet Lc60 target
-    hueProgression: { 50: -5, 950: 0 },
+    hueProgression: { 50: -10, 950: 5},
   },
   {
     name: "blue-500",
@@ -106,14 +106,14 @@ export const colorConfigs = [
     baseHue: 335.21,
     baseSaturation: 91.50,
     baseLightness: 58.02,
-    hueProgression: { 50: -5, 950: 5 },
+    hueProgression: { 50: -10, 950: 5 },
   },
   {
     name: "pink-500",
     baseHue: 358.96,
     baseSaturation: 94.88,
     baseLightness: 57.46,
-    hueProgression: { 50: -4, 950: -12 },
+    hueProgression: { 50: -10, 950: 5 },
   },
   {
     name: "rando-500",

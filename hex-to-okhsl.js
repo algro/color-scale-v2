@@ -63,7 +63,7 @@ try {
   console.log(`Black on color: Lc ${blackOnColor.toFixed(1)}`);
   console.log(`Color on white: Lc ${colorOnWhite.toFixed(1)}`);
   console.log(`Color on black: Lc ${colorOnBlack.toFixed(1)}`);
-  console.log('');
+    console.log('');
 
 } catch (error) {
   console.error(`❌ Error: Invalid hex color "${hex}"`);
