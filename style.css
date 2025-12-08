@@ -507,6 +507,7 @@ body {
 .contrast-controls {
   margin-top: 16px;
   margin-bottom: 24px;
+  padding-left: 4px;
 }
 
 /* Toggle container */
