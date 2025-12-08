@@ -47,10 +47,10 @@ export const colorConfigs = [
   },
   {
     name: "orange-500",
-    baseHue: 49.40,
-    baseSaturation: 94.03,
-    baseLightness: 67.00,
-    hueProgression: { 50: 10, 950: -20 },
+    baseHue: 44.73,
+    baseSaturation: 94.07,
+    baseLightness: 65.14,
+    hueProgression: { 50: 10, 950: -15 },
   },
   {
     name: "amber-500",
@@ -65,7 +65,7 @@ export const colorConfigs = [
     baseHue: 82.72,
     baseSaturation: 98.95,
     baseLightness: 79.85,
-    hueProgression: { 50: 10, 950: -35 },
+    hueProgression: { 50: 10, 950: -25 },
     lightnessProgression: {700: 25}, 
     //lightnessProgression: {600:4, 850:65, 900:88}, // thats how you can override lightness progression for a specific color
   },
