@@ -136,21 +136,21 @@ export const colorConfigs = [
   },
   {
     name: "rando-500",
-    baseHue: 274.87,
-    baseSaturation: 23.64,
+    baseHue: 294.00,
+    baseSaturation: 27.79,
+    baseLightness: 39.03,
     startL: 98,
-    baseLightness: 39.85,
-    hueProgression: { 50: -10, 950: 10 },
-    saturationProgression: { 50: 50, 950: 100 },
-    lightnessProgression: {400: 84}, // to meet 4.5 in 400 vs black
+    hueProgression: { 50: 0, 950: 0 },
+    saturationProgression: { 50: 50, 950: 80 },
+    lightnessProgression: {400: 82}, // to meet 4.5 in 400 vs black
      
   },
   {
     name: "slate-500",
     baseHue: 256.10,
     baseSaturation: 19.73,
-    startL: 98,
     baseLightness: 41.96,
+    startL: 98,
     hueProgression: { 50: -10, 950: 0 },
     saturationProgression: { 50: 20, 200:50, 800:100, 950: 20 },
     
@@ -159,8 +159,8 @@ export const colorConfigs = [
     name: "neutral-500",
     baseHue: 0,
     baseSaturation: 0,
-    startL: 98,
     baseLightness: 42.08,
+    startL: 98,
     hueProgression: { 50: 0, 950: 0 },
     // Neutral: 0% of base (which is already 0%) = true grayscale (no color)
     saturationProgression: { 50: 0, 950: 0 },
