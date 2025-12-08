@@ -135,7 +135,7 @@ export const colorConfigs = [
     hueProgression: { 50: -10, 950: 5 },
   },
   {
-    name: "rando-500",
+    name: "haze-500",
     baseHue: 294.00,
     baseSaturation: 27.79,
     baseLightness: 39.03,
