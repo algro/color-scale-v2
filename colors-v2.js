@@ -68,19 +68,19 @@ export const colorConfigs = [
   },
   {
     name: "lime-500",
-    baseHue: 122.95,
-    baseSaturation: 90.84,
-    baseLightness: 76.79,
-    hueProgression: { 50: 10, 950: 10 },
+    baseHue: 128.77,
+    baseSaturation: 89.77,
+    baseLightness: 78.27,
+    hueProgression: { 50: -8, 950: 4},
     lightnessProgression: {700: 30}, 
   },
   {
     // White on 600 is Lc60, on 700 Lc75 ✅  
     name: "green-500",
-    baseHue: 150.39,
-    baseSaturation: 91.86,
-    baseLightness: 65.03,
-    hueProgression: { 50: -10, 950: 10 },
+    baseHue: 154.07,
+    baseSaturation: 89.76,
+    baseLightness: 65.30,
+    hueProgression: { 50: -8, 950: 10 },
   },
   {
      // White on 600 is Lc60, on 700 Lc75 ✅  
