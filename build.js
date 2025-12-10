@@ -65,10 +65,18 @@ function generateColorScale() {
   });
 
   // Write to JSON file
-  const outputFile = 'color-scale-v2.json';
-  fs.writeFileSync(outputFile, JSON.stringify(scaleData, null, 2), 'utf-8');
+  const jsonFile = 'color-scale-v2.json';
+  fs.writeFileSync(jsonFile, JSON.stringify(scaleData, null, 2), 'utf-8');
   
-  console.log(`\n✅ ${outputFile} generated successfully!`);
+  // Write to JS file (external module format)
+  const jsFile = 'color-scale-v2.js';
+  const jsContent = `// color-scale-v2.js
+const COLOR_SCALE = ${JSON.stringify(scaleData, null, 2)};
+`;
+  fs.writeFileSync(jsFile, jsContent, 'utf-8');
+  
+  console.log(`\n✅ ${jsonFile} generated successfully!`);
+  console.log(`✅ ${jsFile} generated successfully!`);
   console.log(`📦 ${Object.keys(scaleData).length} color scales with ${steps.length} shades each\n`);
 }
 
