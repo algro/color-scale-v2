@@ -142,7 +142,7 @@ export const colorConfigs = [
     startL: 97.5,
     hueProgression: { 50: 0, 950: 0 },
     saturationProgression: { 50: 50, 950: 80 },
-    lightnessProgression: {400: 82}, // to meet 4.5 in 400 vs black
+    lightnessProgression: {400: 81}, // to meet Lc30 on black
      
   },
   {
@@ -164,7 +164,8 @@ export const colorConfigs = [
     hueProgression: { 50: 0, 950: 0 },
     // Neutral: 0% of base (which is already 0%) = true grayscale (no color)
     saturationProgression: { 50: 0, 950: 0 },
-    lightnessProgression: {400: 87}, // to meet 4.5 in 400 vs white
+    lightnessProgression: {200: 39}, // ensures 400 meets Lc30 on black
+    
   }
   
 ];

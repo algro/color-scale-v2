@@ -99,6 +99,8 @@ export function getContrastMasks(hexValues) {
   const masks = {
     'lc60-white': [],  // White on color >= Lc60 (APCA)
     'lc75-white': [],  // Color on white >= Lc75 (APCA)
+    'lc30-white': [],  // Color on white >= Lc30 (APCA) - non-text
+    'lc30-black': [],  // Color on black >= Lc30 (APCA) - non-text
     'wcag-white': [],  // Color vs white >= 4.5:1 (WCAG AA)
     'wcag-black': []   // Color vs black >= 4.5:1 (WCAG AA)
   };
@@ -113,7 +115,12 @@ export function getContrastMasks(hexValues) {
     // Color on white (white as background, color as text) - APCA
     const colorOnWhite = Math.abs(white.contrast(color, 'APCA'));
     masks['lc75-white'].push(colorOnWhite >= 75);
-    
+    masks['lc30-white'].push(colorOnWhite >= 30);
+
+    // Color on black (black as background, color as text) - APCA
+    const colorOnBlack = Math.abs(black.contrast(color, 'APCA'));
+    masks['lc30-black'].push(colorOnBlack >= 30);
+
     // Color vs white - WCAG 2.1 (symmetric, 4.5:1 for AA)
     const wcagWhite = color.contrast(white, 'WCAG21');
     masks['wcag-white'].push(wcagWhite >= 4.5);
