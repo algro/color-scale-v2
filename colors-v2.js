@@ -27,7 +27,7 @@ export const defaults = {
   // For shades (> 500): % progress from baseLightness to endL (9.5%)
   // Step 50 always = startL, step 950 always = endL (anchored, no need to specify)
   // Unspecified steps = linear interpolation between control points
-  lightnessProgression: { 100: 5, 150: 20, 200: 38 ,400: 86, 600: 10, 850: 75, 900: 92 },
+  lightnessProgression: { 100: 5, 150: 20, 200: 32 ,300:64, 400: 80, 600: 12, 700:32, 800:62, 850: 76, 900: 90 },
 };
 
 // 3) Export color configurations
@@ -56,7 +56,7 @@ export const colorConfigs = [
     baseSaturation: 99.58,
     baseLightness: 71.00,
     hueProgression: { 50: 20, 950: -25 },
-    lightnessProgression: {600: 11}, 
+    
   },
   {
     name: "yellow-500",
@@ -64,7 +64,7 @@ export const colorConfigs = [
     baseSaturation: 98.95,
     baseLightness: 79.85,
     hueProgression: { 50: 10, 950: -25 },
-    lightnessProgression: {700: 30}, 
+   
   },
   {
     name: "lime-500",
@@ -72,7 +72,7 @@ export const colorConfigs = [
     baseSaturation: 89.77,
     baseLightness: 78.27,
     hueProgression: { 50: -8, 950: 4},
-    lightnessProgression: {700: 30}, 
+   
   },
   {
     // White on 600 is Lc60, on 700 Lc75 ✅  
@@ -88,7 +88,7 @@ export const colorConfigs = [
     baseHue: 182.85,
     baseSaturation: 97.10,
     baseLightness: 67.18,
-    lightnessProgression: {700: 37}, // darker than others to meet Lc75 on 700
+    //lightnessProgression: {700: 37}, // darker than others to meet Lc75 on 700
     hueProgression: { 50: -10, 950: 5 },
   },
   {
@@ -142,30 +142,30 @@ export const colorConfigs = [
     startL: 97.5,
     hueProgression: { 50: 0, 950: 0 },
     saturationProgression: { 50: 50, 950: 80 },
-    lightnessProgression: {400: 81}, // to meet Lc30 on black
+    lightnessProgression: {600: 18}, 
      
   },
   {
     name: "slate-500",
-    baseHue: 256.10,
-    baseSaturation: 19.73,
-    baseLightness: 41.96,
+    baseHue: 256.56,
+    baseSaturation: 19.61,
+    baseLightness: 38.77,
     startL: 97.5,
     hueProgression: { 50: -10, 950: 0 },
     saturationProgression: { 50: 20, 200:50, 800:100, 950: 20 },
+    lightnessProgression: {600: 18}, 
     
   },
   {
     name: "neutral-500",
     baseHue: 0,
     baseSaturation: 0,
-    baseLightness: 42.08,
+    baseLightness: 39.24,
     startL: 97.5,
     hueProgression: { 50: 0, 950: 0 },
     // Neutral: 0% of base (which is already 0%) = true grayscale (no color)
     saturationProgression: { 50: 0, 950: 0 },
-    lightnessProgression: {200: 39}, // ensures 400 meets Lc30 on black
-    
+    lightnessProgression: {600: 18}, 
   }
   
 ];

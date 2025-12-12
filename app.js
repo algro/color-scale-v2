@@ -8,7 +8,7 @@ window.Color = Color;
 // APCA contrast configuration
 const CONTRAST_CONFIG = {
   targetLc: 60, // Target APCA contrast value (Lc 65 is minimum for short 14px regular text)
-  method: 'APCA' // 'APCA' or 'WCAG21' for backwards compatibility
+  method: 'APCA'
 };
 window.CONTRAST_CONFIG = CONTRAST_CONFIG;
 
@@ -70,7 +70,7 @@ function createScaleRow(colorName, hexValues, steps, rowIndex) {
     sw.appendChild(contrastDot);
 
     // Store contrast data on swatch for visibility toggling
-    const modes = ['lc60-white', 'lc75-white', 'lc30-white', 'lc30-black', 'wcag-white', 'wcag-black'];
+    const modes = ['lc60-white', 'lc60-black', 'lc70-white', 'lc70-black', 'lc30-white', 'lc30-black'];
     modes.forEach(mode => {
       sw.dataset[mode.replace('-', '')] = contrastMasks[mode][idx] ? '1' : '0';
     });

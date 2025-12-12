@@ -432,7 +432,7 @@ Potential improvements to consider:
 
 - [ ] Add CLI arguments for custom output paths
 - [ ] Support for CSS variables output format
-- [ ] Validation to ensure colors meet WCAG contrast ratios
+- [ ] Validation to ensure colors meet APCA contrast requirements
 - [ ] Watch mode for auto-regeneration on file changes
 - [ ] Visual diff tool to compare generated vs. current colors
 - [ ] Export to other formats (SCSS, Less, Tailwind config)
