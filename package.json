@@ -5,7 +5,10 @@
   "description": "Color palette generator with advanced OKLCH color space handling",
   "main": "server.js",
   "scripts": {
-    "build": "lsof -ti:8000 | xargs kill -9 2>/dev/null || true && node build.js && python3 -m http.server 8000",
+    "build": "node build.js",
+    "build:themes": "node build-themes.js",
+    "build:all": "node build.js && node build-themes.js",
+    "dev": "lsof -ti:8000 | xargs kill -9 2>/dev/null || true && npm run build:all && python3 -m http.server 8000",
     "hex": "node hex-to-okhsl.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

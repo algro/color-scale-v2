@@ -1,0 +1,97 @@
+/* ═══════════════════════════════════════════════════════════
+   Theme: iris-light
+   Mode: light
+   Primitives loaded via color-scale-v2.js module
+   ═══════════════════════════════════════════════════════════ */
+
+:root,
+.ui-standard {
+    --white: #ffffff;
+    --black: #000000;
+
+    --primary: var(--iris-600);
+    --primary-contrast: #ffffff;
+    --primary-minor-2: var(--iris-400);
+    --primary-minor-1: var(--iris-500);
+    --primary-major-1: var(--iris-700);
+    --primary-major-2: var(--iris-800);
+    --primary-major-3: var(--iris-850);
+    --text-norm: var(--neutral-950);
+    --text-weak: var(--neutral-600);
+    --text-hint: var(--neutral-500);
+    --text-disabled: var(--neutral-400);
+    --text-invert: #ffffff;
+    --background-norm: #ffffff;
+    --background-weak: var(--neutral-50);
+    --background-strong: var(--neutral-100);
+    --background-invert: var(--neutral-950);
+    --border-norm: var(--neutral-200);
+    --border-weak: var(--neutral-150);
+    --field-norm: var(--neutral-200);
+    --field-hover: var(--neutral-300);
+    --field-disabled: var(--neutral-100);
+    --interaction-norm: var(--iris-600);
+    --interaction-norm-hover: var(--iris-700);
+    --interaction-norm-active: var(--iris-800);
+    --interaction-norm-minor-2: var(--iris-400);
+    --interaction-norm-minor-1: var(--iris-500);
+    --interaction-norm-major-1: var(--iris-700);
+    --interaction-norm-major-2: var(--iris-800);
+    --interaction-norm-major-3: var(--iris-850);
+    --interaction-norm-contrast: #ffffff;
+    --interaction-weak: var(--neutral-100);
+    --interaction-weak-hover: var(--neutral-150);
+    --interaction-weak-active: var(--neutral-200);
+    --interaction-weak-minor-2: var(--neutral-50);
+    --interaction-weak-minor-1: var(--neutral-100);
+    --interaction-weak-major-1: var(--neutral-200);
+    --interaction-weak-major-2: var(--neutral-300);
+    --interaction-weak-major-3: var(--neutral-400);
+    --interaction-weak-contrast: #000000;
+    --interaction-default: transparent;
+    --interaction-default-hover: var(--neutral-100);
+    --interaction-default-active: var(--neutral-150);
+    --focus-outline: var(--iris-500);
+    --shadow-norm-opacity: 0.1;
+    --shadow-raised-opacity: 0.1;
+    --shadow-lifted-opacity: 0.16;
+    --backdrop-norm: rgba(0, 0, 0, 0.48);
+
+    /* Signals */
+    --signal-danger: var(--red-500);
+    --signal-danger-hover: var(--red-600);
+    --signal-danger-active: var(--red-700);
+    --signal-danger-minor-2: var(--red-50);
+    --signal-danger-minor-1: var(--red-100);
+    --signal-danger-major-1: var(--red-600);
+    --signal-danger-major-2: var(--red-700);
+    --signal-danger-major-3: var(--red-800);
+    --signal-danger-contrast: #ffffff;
+    --signal-warning: var(--orange-500);
+    --signal-warning-hover: var(--orange-600);
+    --signal-warning-active: var(--orange-700);
+    --signal-warning-minor-2: var(--orange-50);
+    --signal-warning-minor-1: var(--orange-100);
+    --signal-warning-major-1: var(--orange-600);
+    --signal-warning-major-2: var(--orange-700);
+    --signal-warning-major-3: var(--orange-800);
+    --signal-warning-contrast: #000000;
+    --signal-success: var(--green-600);
+    --signal-success-hover: var(--green-700);
+    --signal-success-active: var(--green-800);
+    --signal-success-minor-2: var(--green-50);
+    --signal-success-minor-1: var(--green-100);
+    --signal-success-major-1: var(--green-700);
+    --signal-success-major-2: var(--green-800);
+    --signal-success-major-3: var(--green-850);
+    --signal-success-contrast: #ffffff;
+    --signal-info: var(--blue-500);
+    --signal-info-hover: var(--blue-600);
+    --signal-info-active: var(--blue-700);
+    --signal-info-minor-2: var(--blue-50);
+    --signal-info-minor-1: var(--blue-100);
+    --signal-info-major-1: var(--blue-600);
+    --signal-info-major-2: var(--blue-700);
+    --signal-info-major-3: var(--blue-800);
+    --signal-info-contrast: #ffffff;
+}
