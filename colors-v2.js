@@ -20,14 +20,14 @@ export const defaults = {
 
   // Saturation as % of base saturation (RELATIVE)
   // (e.g., if base=95% and step 50=60%, result is 95% * 60% = 57%)
-  saturationProgression: { 50: 75, 950: 90 },
+  saturationProgression: { 50: 75, 950: 80 },
 
   // Lightness as % of range between anchors (RELATIVE)
   // For tints (< 500): % progress from startL (98%) to baseLightness
   // For shades (> 500): % progress from baseLightness to endL (9.5%)
   // Step 50 always = startL, step 950 always = endL (anchored, no need to specify)
   // Unspecified steps = linear interpolation between control points
-  lightnessProgression: { 100: 5, 150: 20, 200: 32 ,300:64, 400: 80, 600: 12, 700:32, 800:62, 850: 76, 900: 90 },
+  lightnessProgression: { 100: 12, 150: 25, 200: 32 ,300:62, 400: 80, 600: 20, 700:36, 800:64, 850: 75, 900: 88 },
 };
 
 // 3) Export color configurations
@@ -64,6 +64,7 @@ export const colorConfigs = [
     baseSaturation: 98.95,
     baseLightness: 79.85,
     hueProgression: { 50: 10, 950: -25 },
+    lightnessProgression: {600: 18},
    
   },
   {
@@ -72,6 +73,7 @@ export const colorConfigs = [
     baseSaturation: 89.77,
     baseLightness: 78.27,
     hueProgression: { 50: -8, 950: 4},
+    lightnessProgression: {600: 18},
    
   },
   {
@@ -139,10 +141,8 @@ export const colorConfigs = [
     baseHue: 294.00,
     baseSaturation: 27.79,
     baseLightness: 39.03,
-    startL: 97.5,
+    startL: 98,
     hueProgression: { 50: 0, 950: 0 },
-    saturationProgression: { 50: 50, 950: 80 },
-    lightnessProgression: {600: 18}, 
      
   },
   {
@@ -150,10 +150,9 @@ export const colorConfigs = [
     baseHue: 256.56,
     baseSaturation: 19.61,
     baseLightness: 38.77,
-    startL: 97.5,
+    startL: 98,
     hueProgression: { 50: -10, 950: 0 },
     saturationProgression: { 50: 20, 200:50, 800:100, 950: 20 },
-    lightnessProgression: {600: 18}, 
     
   },
   {
@@ -161,11 +160,10 @@ export const colorConfigs = [
     baseHue: 0,
     baseSaturation: 0,
     baseLightness: 39.24,
-    startL: 97.5,
+    startL: 98,
     hueProgression: { 50: 0, 950: 0 },
     // Neutral: 0% of base (which is already 0%) = true grayscale (no color)
     saturationProgression: { 50: 0, 950: 0 },
-    lightnessProgression: {600: 18}, 
   }
   
 ];
