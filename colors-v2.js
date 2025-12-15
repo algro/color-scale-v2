@@ -141,7 +141,6 @@ export const colorConfigs = [
     baseLightness: 39.03,
     startL: 98,
     hueProgression: { 50: 0, 950: 0 },
-    //lightnessProgression: { 950: 98},
      
   },
   {
