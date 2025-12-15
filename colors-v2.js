@@ -27,7 +27,7 @@ export const defaults = {
   // For shades (> 500): % progress from baseLightness to endL (9.5%)
   // Step 50 always = startL, step 950 always = endL (anchored, no need to specify)
   // Unspecified steps = linear interpolation between control points
-  lightnessProgression: { 100: 12, 150: 20, 200: 32 ,300:62, 400: 80, 600: 20, 700:36, 800:68, 850: 80, 900: 88 },
+  lightnessProgression: { 100: 12, 150: 20, 200: 32 ,300:62, 400: 80, 600: 20, 700:36, 800:64, 850: 80, 900: 88 },
 };
 
 // 3) Export color configurations
