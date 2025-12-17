@@ -6,9 +6,7 @@
   "main": "server.js",
   "scripts": {
     "build": "node build.js",
-    "build:themes": "node build-themes.js",
-    "build:all": "node build.js && node build-themes.js",
-    "dev": "lsof -ti:8000 | xargs kill -9 2>/dev/null || true && npm run build:all && python3 -m http.server 8000",
+    "dev": "lsof -ti:8000 | xargs kill -9 2>/dev/null || true && npm run build && python3 -m http.server 8000",
     "hex": "node hex-to-okhsl.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
