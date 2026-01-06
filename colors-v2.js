@@ -20,7 +20,7 @@ export const defaults = {
 
   // Saturation as % of base saturation (RELATIVE)
   // (e.g., if base=95% and step 50=60%, result is 95% * 60% = 57%)
-  saturationProgression: { 50: 75, 950: 80 },
+  saturationProgression: {50:75, 200: 75, 800: 80, 950: 60 },
 
   // Lightness as % of range between anchors (RELATIVE)
   // For tints (< 500): % progress from startL (98%) to baseLightness
@@ -111,7 +111,7 @@ export const colorConfigs = [
     baseHue: 283.66,
     baseSaturation: 100.00,
     baseLightness: 49.21,
-    hueProgression: { 50: -5, 950: 7 },
+    hueProgression: { 50: -4, 950: 4 },
   },
   {
     name: "purple-500",
