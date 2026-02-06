@@ -401,7 +401,7 @@ OKhsl is used because it provides **perceptually uniform saturation** across all
 
 The project uses Color.js v0.6.0+ which provides native OKhsl support based on [Björn Ottosson's algorithm](https://bottosson.github.io/posts/colorpicker/#okhsl).
 
-### Why 13 Steps?
+### Why 13 Steps
 
 The 13-step system provides:
 - Fine-grained control in critical ranges (50-200, 800-950)
