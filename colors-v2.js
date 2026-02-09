@@ -111,7 +111,7 @@ export const colorConfigs = [
     baseHue: 283.66,
     baseSaturation: 100.00,
     baseLightness: 49.21,
-    hueProgression: { 50: 0, 950: 4 },
+    hueProgression: { 50: 10, 950: 4 },
   },
   {
     name: "purple-500",
