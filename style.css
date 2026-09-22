@@ -672,6 +672,11 @@ body {
   color: var(--text-weak);
 }
 
+ul.footnote {
+  margin: 0 0 0.5em;
+  padding-left: 1.35em;
+}
+
 /* Link styles */
 a, a:visited {
   color: var(--text-norm);

@@ -119,7 +119,7 @@ Copy-paste ready config:
         ┌─────────────────────────────┐
         │  For each color (24 total): │
         │  1. Convert OKhsl → OKLCH   │
-        │  2. Generate 13-step scale  │
+        │  2. Generate 15-step scale  │
         │  3. Convert OKLCH → Hex     │
         └─────────────┬───────────────┘
                       │
@@ -173,14 +173,14 @@ OKhsl (input) → OKLCH (generation) → Hex (output)
 - OKLCH is better for lightness/chroma interpolation
 - Hex is the standard output format for CSS
 
-### 3. Scale Generation (13 Steps)
+### 3. Scale Generation (15 Steps)
 
-Steps: `[50, 100, 150, 200, 300, 400, 500, 600, 700, 800, 850, 900, 950]`
+Steps: `[25, 50, 100, 150, 200, 300, 400, 500, 600, 700, 800, 850, 900, 950, 975]`
 
 For each step:
-- **Tints (50-500)**: Lighter colors using tint curves
+- **Tints (25-500)**: Lighter colors using tint curves
 - **Base (500)**: Original color unchanged
-- **Shades (500-950)**: Darker colors using shade curves
+- **Shades (500-975)**: Darker colors using shade curves
 
 ### 4. Curve System
 
@@ -401,10 +401,10 @@ OKhsl is used because it provides **perceptually uniform saturation** across all
 
 The project uses Color.js v0.6.0+ which provides native OKhsl support based on [Björn Ottosson's algorithm](https://bottosson.github.io/posts/colorpicker/#okhsl).
 
-### Why 13 Steps
+### Why 15 Steps
 
-The 13-step system provides:
-- Fine-grained control in critical ranges (50-200, 800-950)
+The 15-step system provides:
+- Fine-grained control in critical ranges (25-200, 800-975)
 - Compatibility with design systems like Tailwind CSS
 - Balanced distribution of light/dark variants
 

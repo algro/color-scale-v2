@@ -11,19 +11,23 @@ import Color from 'colorjs.io';
  */
 
 /**
- * All 13 steps in the color scale
+ * All 15 steps in the color scale
  */
-const STEPS = [50, 100, 150, 200, 300, 400, 500, 600, 700, 800, 850, 900, 950];
+export const SCALE_STEPS = [
+  25, 50, 100, 150, 200, 300, 400, 500, 600, 700, 800, 850, 900, 950, 975,
+];
+
+const STEPS = SCALE_STEPS;
 
 /**
  * Available tint steps (before base 500)
  */
-const TINT_STEPS = [50, 100, 150, 200, 300, 400];
+const TINT_STEPS = [25, 50, 100, 150, 200, 300, 400];
 
 /**
  * Available shade steps (after base 500)
  */
-const SHADE_STEPS = [600, 700, 800, 850, 900, 950];
+const SHADE_STEPS = [600, 700, 800, 850, 900, 950, 975];
 
 /**
  * Map progression values to specific steps
@@ -79,9 +83,21 @@ function interpolateValue(step, controlPoints) {
     }
   }
 
-  // If no surrounding points found, return closest value
+  // Extrapolate linearly before the first or after the last control point
   if (beforeIdx === -1) {
-    return step < steps[0] ? controlPoints[steps[0]] : controlPoints[steps[steps.length - 1]];
+    if (steps.length === 1) {
+      return controlPoints[steps[0]];
+    }
+    if (step < steps[0]) {
+      const s0 = steps[0];
+      const s1 = steps[1];
+      const t = (step - s0) / (s1 - s0);
+      return controlPoints[s0] + (controlPoints[s1] - controlPoints[s0]) * t;
+    }
+    const s0 = steps[steps.length - 2];
+    const s1 = steps[steps.length - 1];
+    const t = (step - s0) / (s1 - s0);
+    return controlPoints[s0] + (controlPoints[s1] - controlPoints[s0]) * t;
   }
 
   // Linear interpolation between the two points
@@ -111,12 +127,12 @@ function wrapHue(hue) {
  * @param {number} options.baseHue - Base hue in degrees (0-360)
  * @param {number} options.baseSaturation - Base saturation in percentage (0-100)
  * @param {number} options.baseLightness - Base lightness in percentage (0-100)
- * @param {number} options.startL - Starting lightness at step 50 (absolute %)
- * @param {number} options.endL - Ending lightness at step 950 (absolute %)
+ * @param {number} options.startL - Starting lightness at step 25 (absolute %)
+ * @param {number} options.endL - Ending lightness at step 975 (absolute %)
  * @param {Object} options.hueProgression - { step: shift } - Hue shifts in degrees for specific steps
  * @param {Object} options.saturationProgression - { step: percent } - Saturation as % of base (RELATIVE)
  * @param {Object} options.lightnessProgression - { step: percent } - Lightness as % of range (RELATIVE)
- * @returns {Array} Array of 13 color objects {L, C, H} in OKLCH space
+ * @returns {Array} Array of 15 color objects {L, C, H} in OKLCH space
  */
 export function generateScale({
   baseHue,
@@ -161,9 +177,9 @@ export function generateScale({
   const shadeRange = endL - baseLightness;
 
   const lightControls = {
-    50: startL, // Always anchor to startL
+    25: startL, // Lightest step
     500: baseLightness, // Base is always exact
-    950: endL // Always anchor to endL
+    975: endL // Darkest step
   };
 
   // Convert relative % to absolute lightness for each step

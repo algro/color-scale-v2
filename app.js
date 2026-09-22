@@ -31,8 +31,8 @@ window.addEventListener("keydown", (e) => {
 /**
  * Create a color scale row from pre-generated hex values
  * @param {string} colorName - e.g., 'red'
- * @param {Array<string>} hexValues - Array of 13 hex color codes
- * @param {Array<number>} steps - Array of 13 step numbers (50, 100, ..., 950)
+ * @param {Array<string>} hexValues - Hex color codes per step
+ * @param {Array<number>} steps - Step numbers (25, 50, …, 975)
  * @param {number} rowIndex - Row index for alternating background
  */
 function createScaleRow(colorName, hexValues, steps, rowIndex) {
@@ -154,7 +154,7 @@ async function loadAndRenderColors() {
     
     // Convert JSON to array of hex values for each color
     Object.entries(colorData).forEach(([colorName, shades], index) => {
-      // Get steps from the data (all colors use 13 steps)
+      // Get steps from the data (sorted step keys from JSON)
       const steps = Object.keys(shades).map(Number).sort((a, b) => a - b);
       const hexValues = steps.map(step => shades[step]);
       

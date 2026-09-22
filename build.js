@@ -1,7 +1,7 @@
 // build.js - Generate color-scale-v2.json from color configurations
 import Color from 'colorjs.io';
 import fs from 'fs';
-import { generateScale } from './scale-v2.js';
+import { generateScale, SCALE_STEPS } from './scale-v2.js';
 import { defaults, colorConfigs } from './colors-v2.js';
 
 // Make Color available globally for Node.js environment
@@ -16,8 +16,7 @@ function oklchToHex({ L, C, H }) {
            .toString({ format: "hex", alpha: false, collapse: false });
 }
 
-// Steps for the color scale (13-step system)
-const steps = [50, 100, 150, 200, 300, 400, 500, 600, 700, 800, 850, 900, 950];
+const steps = SCALE_STEPS;
 
 /**
  * Generate color scale JSON from color configurations
@@ -55,7 +54,7 @@ function generateColorScale() {
     // Extract base color name
     const colorName = name.split('-')[0];
     
-    // Build the color object (all 13 steps)
+    // Build the color object (all steps)
     scaleData[colorName] = {};
     fullScaleHex.forEach((hex, index) => {
       scaleData[colorName][steps[index]] = hex;
