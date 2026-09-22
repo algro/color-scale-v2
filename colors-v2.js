@@ -152,6 +152,15 @@ export const colorConfigs = [
     
   },
   {
+    name: "zinc-500",
+    baseHue: 285.93,
+    baseSaturation: 6.88,
+    baseLightness: 41.99,
+    hueProgression: { 50: -10, 950: 0 },
+    saturationProgression: { 50: 20, 200: 50, 800: 100, 950: 20 },
+
+  },
+  {
     name: "neutral-500",
     baseHue: 0,
     baseSaturation: 0,

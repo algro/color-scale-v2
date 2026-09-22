@@ -40,7 +40,7 @@ npm run build
 **What it does:**
 1. Stops any existing server on port 8000
 2. Generates `color-scale.json` from color configurations  
-3. Starts a local development server on `http://localhost:8000`
+3. Starts a local development server on `http://localhost:8000` and opens it in your default browser (macOS)
 
 **Use when:** Every time you want to work on or view your colors.
 
@@ -373,7 +373,7 @@ If you prefer a different server, edit `package.json` and change the server comm
    ```bash
    npm run build
    ```
-   Opens server on `http://localhost:8000`
+   Builds, starts the server on `http://localhost:8000`, and opens it in your browser
 
 2. **Make changes:**
    - Edit `colors.js` (single source of truth)
