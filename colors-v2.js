@@ -27,7 +27,7 @@ export const defaults = {
   // For shades (> 500): % progress from baseLightness to endL
   // Step 25 always = startL, step 975 always = endL (anchored, no need to specify)
   // Unspecified steps = linear interpolation between control points
-  lightnessProgression: { 50: 4, 150: 16, 200: 32 ,300:62, 400: 86, 600: 12, 700:36, 800:52, 950: 85 },
+  lightnessProgression: { 50: 4, 150: 16, 200: 32 ,300:62, 400: 86, 600: 12, 700:36, 800:52, 950: 84},
 };
 
 // 3) Export color configurations
@@ -139,7 +139,7 @@ export const colorConfigs = [
     baseHue: 294.00,
     baseSaturation: 27.79,
     baseLightness: 39.03,
-    endL: 6,
+    endL: 4,
     hueProgression: { 25: 0, 975: 0 },
      
   },
@@ -148,7 +148,7 @@ export const colorConfigs = [
     baseHue: 256.56,
     baseSaturation: 19.61,
     baseLightness: 38.77,
-    endL: 6,
+    endL: 4,
     hueProgression: { 25: -10, 975: 0 },
     saturationProgression: { 25: 20, 200: 50, 800: 100, 975: 20 },
     
@@ -158,7 +158,7 @@ export const colorConfigs = [
     baseHue: 285.91,
     baseSaturation: 7.1,
     baseLightness: 39.97,
-    endL: 6,
+    endL: 4,
     hueProgression: { 25: -10, 975: 0 },
     saturationProgression: { 25: 20, 200: 50, 800: 100, 975: 20 },
 
@@ -168,7 +168,7 @@ export const colorConfigs = [
     baseHue: 0,
     baseSaturation: 0,
     baseLightness: 39.24,
-    endL: 6,
+    endL: 4,
     hueProgression: { 25: 0, 975: 0 },
     // Neutral: 0% of base (which is already 0%) = true grayscale (no color)
     saturationProgression: { 25: 0, 975: 0 },
