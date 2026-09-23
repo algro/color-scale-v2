@@ -142,7 +142,7 @@ export const colorConfigs = [
     baseLightness: 39.03,
     endL: 4,
     hueProgression: { 25: 0, 975: 0 },
-    lightnessProgression: { 950: 84 }
+    lightnessProgression: { 950: 84 } // increased contrast to 975 in comparison to colors 
   },
   {
     name: "slate-500",
@@ -152,7 +152,7 @@ export const colorConfigs = [
     endL: 4,
     hueProgression: { 25: -10, 975: 0 },
     saturationProgression: { 25: 20, 200: 50, 800: 100, 975: 20 },
-    lightnessProgression: { 950: 84 }
+    lightnessProgression: { 950: 84 } // increased contrast to 975 in comparison to colors
   },
   {
     name: "zinc-500",
@@ -162,7 +162,7 @@ export const colorConfigs = [
     endL: 4,
     hueProgression: { 25: -10, 975: 0 },
     saturationProgression: { 25: 20, 200: 50, 800: 100, 975: 20 },
-    lightnessProgression: { 950: 84}
+    lightnessProgression: { 950: 84 } // increased contrast to 975 in comparison to colors
   },
   {
     name: "neutral-500",
@@ -173,7 +173,7 @@ export const colorConfigs = [
     hueProgression: { 25: 0, 975: 0 },
     // Neutral: 0% of base (which is already 0%) = true grayscale (no color)
     saturationProgression: { 25: 0, 975: 0 },
-    lightnessProgression: { 950: 84 }
+    lightnessProgression: { 950: 84 } // increased contrast to 975 in comparison to colors
   }
   
 ];
