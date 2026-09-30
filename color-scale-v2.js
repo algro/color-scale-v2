@@ -1,7 +1,7 @@
 // color-scale-v2.js
 const COLOR_SCALE = {
   "red": {
-    "25": "#fef8f8",
+    "25": "#fef6f7",
     "50": "#fdf1f2",
     "100": "#fce8e9",
     "150": "#fbdfe1",
@@ -18,7 +18,7 @@ const COLOR_SCALE = {
     "975": "#200d0f"
   },
   "orange": {
-    "25": "#fef8f3",
+    "25": "#fef7f1",
     "50": "#fdf4eb",
     "100": "#fdede0",
     "150": "#fce5d5",
@@ -35,7 +35,7 @@ const COLOR_SCALE = {
     "975": "#200e0b"
   },
   "amber": {
-    "25": "#fef9f0",
+    "25": "#fef8ee",
     "50": "#fdf5e8",
     "100": "#fdf0dd",
     "150": "#fcead2",
@@ -52,7 +52,7 @@ const COLOR_SCALE = {
     "975": "#200e0a"
   },
   "yellow": {
-    "25": "#fdf9ed",
+    "25": "#fdf9eb",
     "50": "#fdf7e6",
     "100": "#fcf4dd",
     "150": "#fbf1d4",
@@ -69,7 +69,7 @@ const COLOR_SCALE = {
     "975": "#1d1108"
   },
   "lime": {
-    "25": "#f7fbef",
+    "25": "#f7fbed",
     "50": "#f4fae8",
     "100": "#eff8de",
     "150": "#eaf6d3",
@@ -86,7 +86,7 @@ const COLOR_SCALE = {
     "975": "#0f160a"
   },
   "green": {
-    "25": "#f3fdf3",
+    "25": "#f1fcf1",
     "50": "#ebfbeb",
     "100": "#def9e0",
     "150": "#d0f6d4",
@@ -103,7 +103,7 @@ const COLOR_SCALE = {
     "975": "#0a1711"
   },
   "teal": {
-    "25": "#effdf8",
+    "25": "#ecfdf7",
     "50": "#e4fcf4",
     "100": "#d4fbef",
     "150": "#c2f9e9",
@@ -120,7 +120,7 @@ const COLOR_SCALE = {
     "975": "#081715"
   },
   "cyan": {
-    "25": "#f1fcfd",
+    "25": "#effbfd",
     "50": "#e8fafc",
     "100": "#daf6fb",
     "150": "#cdf3fa",
@@ -137,7 +137,7 @@ const COLOR_SCALE = {
     "975": "#08161b"
   },
   "blue": {
-    "25": "#f6fafe",
+    "25": "#f4f9fe",
     "50": "#eff6fd",
     "100": "#e4f0fc",
     "150": "#daebfb",
@@ -154,7 +154,7 @@ const COLOR_SCALE = {
     "975": "#0a1421"
   },
   "iris": {
-    "25": "#f8f9fe",
+    "25": "#f6f7fe",
     "50": "#f1f3fd",
     "100": "#e8eafc",
     "150": "#dee1fb",
@@ -171,7 +171,7 @@ const COLOR_SCALE = {
     "975": "#131024"
   },
   "purple": {
-    "25": "#faf8fe",
+    "25": "#f9f7fe",
     "50": "#f6f2fd",
     "100": "#f0e9fc",
     "150": "#ebe0fa",
@@ -188,7 +188,7 @@ const COLOR_SCALE = {
     "975": "#1b0e1e"
   },
   "magenta": {
-    "25": "#fdf7fd",
+    "25": "#fcf6fc",
     "50": "#fbf1fb",
     "100": "#f8e8f7",
     "150": "#f5dff3",
@@ -205,7 +205,7 @@ const COLOR_SCALE = {
     "975": "#1e0d18"
   },
   "pink": {
-    "25": "#fef7fa",
+    "25": "#fdf6f9",
     "50": "#fdf1f6",
     "100": "#fbe8f0",
     "150": "#fadee9",
@@ -222,7 +222,7 @@ const COLOR_SCALE = {
     "975": "#200d12"
   },
   "haze": {
-    "25": "#f9f9fb",
+    "25": "#f8f7fa",
     "50": "#f3f2f6",
     "100": "#e9e7ef",
     "150": "#dfdde8",
@@ -239,7 +239,7 @@ const COLOR_SCALE = {
     "975": "#060508"
   },
   "slate": {
-    "25": "#f9f9fa",
+    "25": "#f7f8f8",
     "50": "#f2f3f3",
     "100": "#e7e9eb",
     "150": "#dbdfe2",
@@ -256,7 +256,7 @@ const COLOR_SCALE = {
     "975": "#050606"
   },
   "zinc": {
-    "25": "#f9f9f9",
+    "25": "#f8f8f8",
     "50": "#f2f3f3",
     "100": "#e8e9ea",
     "150": "#dedfe0",
@@ -273,7 +273,7 @@ const COLOR_SCALE = {
     "975": "#060606"
   },
   "neutral": {
-    "25": "#f9f9f9",
+    "25": "#f8f8f8",
     "50": "#f2f2f2",
     "100": "#e8e8e8",
     "150": "#dedede",
